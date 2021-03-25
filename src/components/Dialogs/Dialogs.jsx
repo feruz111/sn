@@ -2,8 +2,6 @@ import React from "react";
 import Messages from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
 import s from "./Dialogs.module.css";
-import { addMessageActionCreator } from "../../redux/dialogsReducer";
-
 
 const Dialogs = (props) => {
   let newMessage = React.createRef();
