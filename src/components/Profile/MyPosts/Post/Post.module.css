@@ -1,0 +1,8 @@
+.item{
+  color: greenyellow;
+}
+.item div img{
+  width: 30px;
+  height: 30px;
+  border-radius: 30px;
+}
