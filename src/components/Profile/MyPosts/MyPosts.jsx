@@ -6,22 +6,19 @@ import s from "./MyPosts.module.css";
 import Post from "./Post/Post";
 
 const MyPosts = (props) => {
-  console.log(props);
-  let postsElements = props.profilePosts.posts.map((p) => (
+  let postsElements = props.posts.map((p) => (
     <Post message={p.message} like={p.likesCount} />
   ));
 
   let newPostElement = React.createRef();
-
-  let addPost = () => {
-    console.log(store._state.profilePage)
-    props.dispatch(addPostActionCreator())
-    newPostElement.current.value = "";
+ 
+  let onAddPost = () => {
+    props.addPost()
   };
 
   let onPostChange = () => {
     let text = newPostElement.current.value;
-    props.dispatch(updateNewPostTextActionCreator(text))
+    props.updateNewPostText(text)
   };
 
   return (
@@ -30,13 +27,13 @@ const MyPosts = (props) => {
       <div>
         <div>
           <textarea
-            value={props.profilePosts.newPostText}
+            value={props.newPostText}
             ref={newPostElement}
             onChange={onPostChange}
           ></textarea>
         </div>
         <div>
-          <button onClick={addPost}>Add posts</button>
+          <button onClick={onAddPost}>Add posts</button>
         </div>
       </div>
       <div className={s.posts}>{postsElements}</div>

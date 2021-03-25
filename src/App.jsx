@@ -7,6 +7,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 import News from "./components/News/News";
 import Groups from "./components/Groups/Groups";
 import Settings from "./components/Settings/Settings";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
 function App(props) {
   return (
@@ -17,22 +18,11 @@ function App(props) {
         <div className="app-wrapper-content">
           <Route
             path="/dialogs"
-            render={() => (
-              <Dialogs
-                dispatch={props.dispatch}
-                messages={props.appState.messagesPage.messages}
-                dialogs={props.appState.messagesPage.dialogs}
-              />
-            )}
+            render={() => <DialogsContainer store={props.store} />}
           />
           <Route
             path="/profile"
-            render={() => (
-              <Profile
-                profilePosts={props.appState.profilePage}
-                dispatch={props.dispatch}
-              />
-            )}
+            render={() => <Profile store={props.store} />}
           />
           <Route path="/news" component={News} />
           <Route path="/groups" component={Groups} />
