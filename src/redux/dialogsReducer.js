@@ -1,4 +1,4 @@
-let ADD_MESSAGE = "ADD-MESSAGE"
+let ADD_MESSAGE = "ADD-MESSAGE";
 
 let initialState = {
   dialogs: [
@@ -16,28 +16,32 @@ let initialState = {
     { id: 4, message: "yo" },
     { id: 5, message: "yo" },
   ],
+  newPostText: "",
 };
 
-export const dialogReducer = (state = initialState,action) => {
+export const dialogReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case ADD_MESSAGE:
+      return {
+        ...state,
+        newPostText: "",
+        messages: [
+          ...state.messages,
+          {
+            id: 6,
+            message: action.text,
+          },
+        ],
+      };
 
-    switch(action.type){
-        case ADD_MESSAGE:
-            let newMessage = {
-                id: 6, message: action.text
-            };
-    
-            state.messages.push(newMessage);
-              return state;
-        default:
-              return state;
-
-
-    }
-
+    default:
+      return state;
+  }
 };
 
 export const addMessageActionCreator = (text) => {
-    return {
-      type: ADD_MESSAGE, text
-    }
+  return {
+    type: ADD_MESSAGE,
+    text,
   };
+};
