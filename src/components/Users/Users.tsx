@@ -1,9 +1,20 @@
 import axios from "axios";
 import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import { UsersType } from "../../redux/usersReducer";
 import s from "./Users.module.css";
 
-const Users = (props) => {
+type UsersContainerPropsType = {
+  users: Array<UsersType> 
+  pageSize: number
+  currentPage: number
+  totalUsersCount: number
+  follow: (id: number) => void
+  unFollow: (id: number) => void
+  onPageChanged: (pageNumber: number) => void
+}
+
+const Users = (props: UsersContainerPropsType) => {
   let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
   let page = [];
   for (let i = 1; i <= pagesCount; i++) {
@@ -18,13 +29,13 @@ const Users = (props) => {
             onClick={(e) => {
               props.onPageChanged(p);
             }}
-            className={props.currentPage === p && s.selectedPage}
+            className={props.currentPage === p ? s.selectedPage : ""}
           >
             {p}
           </span>
         );
       })}
-      {props.users.map((u) => {
+      {props.users.map((u: UsersType) => {
         return (
           <div key={u.id}>
             <span>

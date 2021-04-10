@@ -1,13 +1,21 @@
 import React from "react";
+import { PostsType, ProfilePageType } from "../../../redux/profileReducer";
 import s from "./MyPosts.module.css";
 import Post from "./Post/Post";
 
-const MyPosts = (props) => {
-  let postsElements = props.posts.map((p) => (
+type PropsType = {
+  posts: Array<PostsType>
+  newPostText: string
+  updateNewPostText: (text: string) => void
+  addPost: () => void
+}
+
+const MyPosts = (props: PropsType) => {
+  let postsElements = props.posts.map((p: PostsType) => (
     <Post message={p.message} like={p.likesCount} />
   ));
 
-  let newPostElement = React.createRef();
+  let newPostElement: any = React.createRef();
 
   let onAddPost = () => {
     props.addPost();

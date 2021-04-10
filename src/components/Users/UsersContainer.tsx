@@ -7,15 +7,29 @@ import {
   setTotalUsersCount,
   setUsers,
   unFollow,
+  UsersType
 } from "../../redux/usersReducer";
 import Users from "./Users";
-import * as axios from "axios";
+import axios from "axios";
 import Preloader from "../Common/Preloader/Preloader";
+import { RootStoreType } from "../../redux/redux-store";
 
-class UsersContainer extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+
+type UsersContainerType = {
+  users: Array<UsersType>  
+  pageSize: number
+  currentPage: number
+  totalUsersCount: number
+  isFetching: boolean
+  toggleIsFetching: (value: boolean) => void
+  setUsers: (value: any) => void
+  setTotalUsersCount: (totalCount: number) => void
+  setCurrentPage: (pageNumber: number) => void
+  follow: (id: number) => void
+  unFollow: (id: number) => void
+}
+
+class UsersContainer extends React.Component<UsersContainerType,{}> {
   componentDidMount() {
     this.props.toggleIsFetching(true);
     axios
@@ -32,7 +46,7 @@ class UsersContainer extends React.Component {
       });
   }
 
-  onPageChanged = (pageNumber) => {
+  onPageChanged = (pageNumber: number) => {
     this.props.setCurrentPage(pageNumber);
     this.props.toggleIsFetching(true);
     axios
@@ -67,7 +81,7 @@ class UsersContainer extends React.Component {
   }
 }
 
-let mapStateToProps = (state) => {
+let mapStateToProps = (state: RootStoreType) => {
   return {
     users: state.userPage.users,
     pageSize: state.userPage.pageSize,

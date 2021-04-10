@@ -2,12 +2,21 @@ import React from "react";
 import Preloader from "../../Common/Preloader/Preloader";
 import s from "./ProfileInfo.module.css";
 
+type PhotosType = {
+  large: string;
+};
 
-const ProfileInfo = (props) => {
-  if(!props.profile){
-    return(
-      <Preloader />
-    )
+type ProfileType = {
+  photos: PhotosType;
+};
+
+export type ProfileInfoType = {
+  profile: ProfileType;
+};
+
+const ProfileInfo = (props: ProfileInfoType) => {
+  if (!props.profile) {
+    return <Preloader />;
   }
 
   return (
@@ -17,7 +26,8 @@ const ProfileInfo = (props) => {
       </div>
       <div className={s.descriptionBlock}>
         <img src={props.profile.photos.large} />
-        ava + description</div>
+        ava + description
+      </div>
     </div>
   );
 };

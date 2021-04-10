@@ -1,6 +1,26 @@
-let ADD_MESSAGE = "ADD-MESSAGE";
+export type AddMessageActionType = {
+  type: "ADD-MESSAGE";
+  text: string;
+};
 
-let initialState = {
+export type DialogsType = {
+  id: number;
+  name: string;
+};
+export type MessagesType = {
+  id: number;
+  message: string;
+};
+
+type ActionsType = AddMessageActionType;
+
+export type MessagesPageType = {
+  dialogs: Array<DialogsType>;
+  messages: Array<MessagesType>;
+  newPostText: string;
+};
+
+let initialState: MessagesPageType = {
   dialogs: [
     { id: 1, name: "Dimych" },
     { id: 2, name: "Sveta" },
@@ -19,9 +39,9 @@ let initialState = {
   newPostText: "",
 };
 
-export const dialogReducer = (state = initialState, action) => {
+export const dialogReducer = (state = initialState, action: ActionsType): MessagesPageType => {
   switch (action.type) {
-    case ADD_MESSAGE:
+    case "ADD-MESSAGE":
       return {
         ...state,
         newPostText: "",
@@ -39,9 +59,9 @@ export const dialogReducer = (state = initialState, action) => {
   }
 };
 
-export const addMessageActionCreator = (text) => {
+export const addMessageActionCreator = (text: string): AddMessageActionType => {
   return {
-    type: ADD_MESSAGE,
+    type: "ADD-MESSAGE",
     text,
   };
 };
