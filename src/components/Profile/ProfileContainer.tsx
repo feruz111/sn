@@ -3,14 +3,14 @@ import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import s from "./Profile.module.css";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import Profile from "./Profile";
-import axios from "axios";
 import { connect } from "react-redux";
 import { setUserProfile } from "../../redux/profileReducer";
 import { RouteComponentProps, withRouter } from "react-router";
 import { RootStoreType } from "../../redux/redux-store";
+import { profileFollowAPI } from "../../api/api";
 
 type PathParamsType = {
-  userId: string | undefined ;
+  userId: string | undefined;
 };
 
 type MapStatePropsType = {
@@ -29,11 +29,9 @@ function ProfileContainer(props: PropsType) {
     if (!userId) {
       userId = "2";
     }
-    axios
-      .get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
-      .then((response:any) => {//any
-        props.setUserProfile(response.data);
-      });
+    profileFollowAPI.profileAPI(userId).then((data: any) => {// any
+      props.setUserProfile(data);
+    });
   }, []);
   return <Profile {...props} profile={props.profile} />;
 }
@@ -46,4 +44,4 @@ let WithURLDataContainerComponent = withRouter(ProfileContainer);
 
 export default connect(mapStateToProps, { setUserProfile })(
   WithURLDataContainerComponent
-);  
+);

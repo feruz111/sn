@@ -12,7 +12,7 @@ function App() {
   return (
     <div className="app-wrapper">
       <HeaderContainer />
-      <Navbar />vcxvx
+      <Navbar />
       <div className="app-wrapper-content">
         <Route path="/dialogs" render={() => <DialogsContainer />} />
         <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
