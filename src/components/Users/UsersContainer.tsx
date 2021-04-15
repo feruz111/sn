@@ -3,17 +3,14 @@ import { connect } from "react-redux";
 import {
   follow,
   setCurrentPage,
-  toggleIsFetching,
-  setTotalUsersCount,
-  setUsers,
   unFollow,
   UsersType,
   followingInProgressAC,
+  getUsersThunkCreator
 } from "../../redux/usersReducer";
 import Users from "./Users";
 import Preloader from "../Common/Preloader/Preloader";
 import { RootStoreType } from "../../redux/redux-store";
-import { usersAPI } from "../../api/api";
 
 type UsersContainerType = {
   users: Array<UsersType>;
@@ -22,35 +19,20 @@ type UsersContainerType = {
   totalUsersCount: number;
   isFetching: boolean;
   followingInProgress: any;
-  toggleIsFetching: (value: boolean) => void;
-  setUsers: (value: any) => void;
-  setTotalUsersCount: (totalCount: number) => void;
   setCurrentPage: (pageNumber: number) => void;
   follow: (id: number) => void;
   unFollow: (id: number) => void;
   followingInProgressAC: (isFetching: boolean, userId: number) => void;
-};
+  getUsersThunkCreator:(currentPage:number,pageSize:number) => void
+}
 
 class UsersContainer extends React.Component<UsersContainerType, {}> {
   componentDidMount() {
-    this.props.toggleIsFetching(true);
-    usersAPI
-      .getUsers(this.props.currentPage, this.props.pageSize)
-      .then((data) => {
-        this.props.toggleIsFetching(false);
-        this.props.setUsers(data.items);
-        this.props.setTotalUsersCount(data.totalCount);
-      });
+    this.props.getUsersThunkCreator(this.props.currentPage,this.props.pageSize)
   }
 
   onPageChanged = (pageNumber: number) => {
-    this.props.setCurrentPage(pageNumber);
-    this.props.toggleIsFetching(true);
-    usersAPI.getUsers(pageNumber, this.props.pageSize).then((data) => {
-      this.props.toggleIsFetching(false);
-      this.props.setUsers(data.items);
-      this.props.setTotalUsersCount(data.totalCount);
-    });
+    this.props.getUsersThunkCreator(pageNumber,this.props.pageSize)
   };
 
   render() {
@@ -87,9 +69,15 @@ let mapStateToProps = (state: RootStoreType) => {
 export default connect(mapStateToProps, {
   follow,
   unFollow,
-  setUsers,
   setCurrentPage,
-  setTotalUsersCount,
-  toggleIsFetching,
   followingInProgressAC,
+  getUsersThunkCreator
 })(UsersContainer);
+
+
+
+
+
+
+
+

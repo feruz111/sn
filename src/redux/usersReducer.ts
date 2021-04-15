@@ -1,3 +1,5 @@
+import { usersAPI } from "../api/api";
+
 export type UsersType = {
   id: number;
   photoUrl: string;
@@ -34,7 +36,7 @@ export type ToggleIsFetchingType = {
 };
 export type FollowingInProgressType = {
   type: "FOLLOWING_IN_PROGRESS";
-  isFetching: boolean
+  isFetching: boolean;
   userId: number;
 };
 
@@ -105,24 +107,27 @@ export const userReducer = (
       return { ...state, isFetching: action.isFetching };
     }
     case FOLLOWING_IN_PROGRESS: {
-      return { ...state, 
-        followingInProgress: action.isFetching ? 
-        [...state.followingInProgress, action.userId]:
-        state.followingInProgress.filter((id:number) => id !== action.userId)
-       };
+      return {
+        ...state,
+        followingInProgress: action.isFetching
+          ? [...state.followingInProgress, action.userId]
+          : state.followingInProgress.filter(
+              (id: number) => id !== action.userId
+            ),
+      };
     }
     default:
       return state;
   }
 };
 
-export const follow = (userId: number): FollowActionType => {
+export const followSuccess = (userId: number): FollowActionType => {
   return {
     type: "FOLLOW",
     userId,
   };
 };
-export const unFollow = (userId: number): UnFollowActionType => {
+export const unFollowSuccess = (userId: number): UnFollowActionType => {
   return {
     type: "UNFOLLOW",
     userId,
@@ -154,10 +159,46 @@ export const toggleIsFetching = (isFetching: boolean): ToggleIsFetchingType => {
     isFetching,
   };
 };
-export const followingInProgressAC = (isFetching: boolean, userId: number): FollowingInProgressType => {
+export const followingInProgressAC = (
+  isFetching: boolean,
+  userId: number
+): FollowingInProgressType => {
   return {
     type: FOLLOWING_IN_PROGRESS,
     userId,
-    isFetching
+    isFetching,
+  };
+};
+
+export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
+  return (dispatch: any) => {
+    dispatch(toggleIsFetching(true));
+    usersAPI.getUsers(currentPage, pageSize).then((data) => {
+      dispatch(toggleIsFetching(false));
+      dispatch(setUsers(data.items));
+      dispatch(setTotalUsersCount(data.totalCount));
+    });
+  };
+};
+export const follow = (userId: number) => {
+  return (dispatch: any) => {
+    dispatch(followingInProgressAC(true, userId));
+    usersAPI.follow(userId).then((response) => {
+      if (response.data.resultCode === 0) {
+        dispatch(followSuccess(userId));
+      }
+      dispatch(followingInProgressAC(false, userId));
+    });
+  };
+};
+export const unFollow = (userId: number) => {
+  return (dispatch: any) => {
+    dispatch(followingInProgressAC(true, userId));
+    usersAPI.unFollow(userId).then((response) => {
+      if (response.data.resultCode === 0) {
+        dispatch(unFollowSuccess(userId));
+      }
+      dispatch(followingInProgressAC(false, userId));
+    });
   };
 };

@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import { usersAPI } from "../../api/api";
 import { UsersType } from "../../redux/usersReducer";
 import s from "./Users.module.css";
 
@@ -53,24 +54,6 @@ const Users = (props: UsersContainerPropsType) => {
                       (id: number) => id !== u.id
                     )}
                     onClick={() => {
-                      props.followingInProgressAC(true, u.id);
-                      axios
-                        .delete(
-                          `https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
-                          {
-                            withCredentials: true,
-                            headers: {
-                              "API-KEY": "5b802dfc-8175-4671-99bf-e30ddb894d16",
-                            },
-                          }
-                        )
-                        .then((response) => {
-                          if (response.data.resultCode === 0) {
-                            props.unFollow(u.id);
-                          }
-                          props.followingInProgressAC(false, u.id);
-                        });
-
                       props.unFollow(u.id);
                     }}
                   >
@@ -82,24 +65,7 @@ const Users = (props: UsersContainerPropsType) => {
                       (id: number) => id !== u.id
                     )}
                     onClick={() => {
-                      props.followingInProgressAC(true, u.id);
-                      axios
-                        .post(
-                          `https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
-                          {},
-                          {
-                            withCredentials: true,
-                            headers: {
-                              "API-KEY": "5b802dfc-8175-4671-99bf-e30ddb894d16",
-                            },
-                          }
-                        )
-                        .then((response) => {
-                          if (response.data.resultCode === 0) {
-                            props.follow(u.id);
-                          }
-                          props.followingInProgressAC(false, u.id);
-                        });
+                      props.follow(u.id);
                     }}
                   >
                     Follow
