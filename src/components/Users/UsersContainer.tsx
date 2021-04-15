@@ -11,6 +11,7 @@ import {
 import Users from "./Users";
 import Preloader from "../Common/Preloader/Preloader";
 import { RootStoreType } from "../../redux/redux-store";
+import { Redirect } from "react-router";
 
 type UsersContainerType = {
   users: Array<UsersType>;
@@ -19,6 +20,7 @@ type UsersContainerType = {
   totalUsersCount: number;
   isFetching: boolean;
   followingInProgress: any;
+  isAuth: boolean
   setCurrentPage: (pageNumber: number) => void;
   follow: (id: number) => void;
   unFollow: (id: number) => void;
@@ -36,10 +38,12 @@ class UsersContainer extends React.Component<UsersContainerType, {}> {
   };
 
   render() {
+
     return (
       <>
         {this.props.isFetching ? <Preloader /> : null}
         <Users
+        isAuth={this.props.isAuth}
           followingInProgress={this.props.followingInProgress}
           followingInProgressAC={followingInProgressAC}
           totalUsersCount={this.props.totalUsersCount}
@@ -63,6 +67,7 @@ let mapStateToProps = (state: RootStoreType) => {
     currentPage: state.userPage.currentPage,
     isFetching: state.userPage.isFetching,
     followingInProgress: state.userPage.followingInProgress,
+    isAuth: state.auth.isAuth
   };
 };
 

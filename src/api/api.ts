@@ -16,21 +16,19 @@ export const usersAPI = {
   },
   follow(userId: number) {
     return instance.post(
-      `https://social-network.samuraijs.com/api/1.0/follow/${userId}`
+      `follow/${userId}`
     );
   },
   unFollow(userId: number) {
     return instance.delete(
-      `https://social-network.samuraijs.com/api/1.0/follow/${userId}`
+      `follow/${userId}`
     );
   },
-};
-
-export const profileFollowAPI = {
   profileAPI(userId: string) {
     return instance.get(`profile/${userId}`).then((response) => response.data);
   },
 };
+
 export const authAPI = {
   authMeAPI() {
     return instance.get(`auth/me`).then((response) => response.data);

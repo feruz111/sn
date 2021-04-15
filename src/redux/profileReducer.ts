@@ -1,3 +1,5 @@
+import { usersAPI } from "../api/api";
+
 export type AddPostActionType = {
   type: "ADD-POST";
 };
@@ -6,8 +8,8 @@ export type UpdateNewPostTextActionType = {
   text: string;
 };
 export type SetUserProfileActionType = {
-  type: "SET_USER_PROFILE",
-  profile: string
+  type: "SET_USER_PROFILE";
+  profile: string;
 };
 
 export type PostsType = {
@@ -34,9 +36,15 @@ let initialState: ProfilePageType = {
   profile: null,
 };
 
-export type ProfileActionsType = AddPostActionType | UpdateNewPostTextActionType | SetUserProfileActionType;
+export type ProfileActionsType =
+  | AddPostActionType
+  | UpdateNewPostTextActionType
+  | SetUserProfileActionType;
 
-export const profileReducer = (state = initialState, action: ProfileActionsType): ProfilePageType => {
+export const profileReducer = (
+  state = initialState,
+  action: ProfileActionsType
+): ProfilePageType => {
   switch (action.type) {
     case "ADD-POST":
       return {
@@ -69,7 +77,9 @@ export const addPostActionCreator = (): AddPostActionType => {
   };
 };
 
-export const updateNewPostTextActionCreator = (text: string): UpdateNewPostTextActionType => {
+export const updateNewPostTextActionCreator = (
+  text: string
+): UpdateNewPostTextActionType => {
   return {
     type: "UPDATE-NEW-POST-TEXT",
     text,
@@ -79,5 +89,12 @@ export const setUserProfile = (profile: string): SetUserProfileActionType => {
   return {
     type: "SET_USER_PROFILE",
     profile,
+  };
+};
+export const getUserProfileThunkCreator = (userId: string) => {
+  return (dispatch: any) => {
+    usersAPI.profileAPI(userId).then((data: any) => {// any
+      dispatch(setUserProfile(data));
+    });
   };
 };

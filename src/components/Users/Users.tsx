@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 import { usersAPI } from "../../api/api";
 import { UsersType } from "../../redux/usersReducer";
 import s from "./Users.module.css";
@@ -11,6 +11,7 @@ type UsersContainerPropsType = {
   currentPage: number;
   totalUsersCount: number;
   followingInProgress: any;
+  isAuth: boolean;
   follow: (id: number) => void;
   unFollow: (id: number) => void;
   onPageChanged: (pageNumber: number) => void;
@@ -23,6 +24,7 @@ const Users = (props: UsersContainerPropsType) => {
   for (let i = 1; i <= pagesCount; i++) {
     page.push(i);
   }
+  if (props.isAuth === false) return <Redirect to={"/login"} />;
 
   return (
     <div>

@@ -8,6 +8,7 @@ let mapStateToProps = (state: RootStoreType) => {
     return {
         newPostText: state.messagesPage.newPostText,
         messagesPage: state.messagesPage,
+        isAuth: state.auth.isAuth
     };
 };
 

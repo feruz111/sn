@@ -3,11 +3,13 @@ import Messages from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
 import s from "./Dialogs.module.css";
 import { DialogsType, MessagesPageType, MessagesType } from "../../redux/dialogsReducer";
+import { Redirect } from "react-router";
 
 type DialogsPageType = {
   newPostText: string,
   messagesPage: MessagesPageType,
-  addMessage: (a: string) => void
+  addMessage: (a: string) => void,
+  isAuth: boolean
 }
 
 const Dialogs: React.FC<DialogsPageType>  = (props) => {
@@ -27,6 +29,8 @@ const Dialogs: React.FC<DialogsPageType>  = (props) => {
   let messagesElements = messagesPage.messages.map((m: MessagesType) => (
     <Messages message={m.message} />
   ));
+
+  if(props.isAuth === false) return < Redirect to={"/login"}/>
 
   return (
     <div className={s.dialogs}>
