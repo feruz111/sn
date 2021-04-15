@@ -6,13 +6,14 @@ import {
   unFollow,
   UsersType,
   followingInProgressAC,
-  getUsersThunkCreator
+  getUsersThunkCreator,
 } from "../../redux/usersReducer";
 import Users from "./Users";
 import Preloader from "../Common/Preloader/Preloader";
 import { RootStoreType } from "../../redux/redux-store";
 import { Redirect } from "react-router";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
+import { compose } from "redux";
 
 type UsersContainerType = {
   users: Array<UsersType>;
@@ -21,30 +22,32 @@ type UsersContainerType = {
   totalUsersCount: number;
   isFetching: boolean;
   followingInProgress: any;
-  isAuth: boolean
+  isAuth: boolean;
   setCurrentPage: (pageNumber: number) => void;
   follow: (id: number) => void;
   unFollow: (id: number) => void;
   followingInProgressAC: (isFetching: boolean, userId: number) => void;
-  getUsersThunkCreator:(currentPage:number,pageSize:number) => void
-}
+  getUsersThunkCreator: (currentPage: number, pageSize: number) => void;
+};
 
 class UsersContainer extends React.Component<UsersContainerType, {}> {
   componentDidMount() {
-    this.props.getUsersThunkCreator(this.props.currentPage,this.props.pageSize)
+    this.props.getUsersThunkCreator(
+      this.props.currentPage,
+      this.props.pageSize
+    );
   }
 
   onPageChanged = (pageNumber: number) => {
-    this.props.getUsersThunkCreator(pageNumber,this.props.pageSize)
+    this.props.getUsersThunkCreator(pageNumber, this.props.pageSize);
   };
 
   render() {
-
     return (
       <>
         {this.props.isFetching ? <Preloader /> : null}
         <Users
-        isAuth={this.props.isAuth}
+          isAuth={this.props.isAuth}
           followingInProgress={this.props.followingInProgress}
           followingInProgressAC={followingInProgressAC}
           totalUsersCount={this.props.totalUsersCount}
@@ -68,24 +71,26 @@ let mapStateToProps = (state: RootStoreType) => {
     currentPage: state.userPage.currentPage,
     isFetching: state.userPage.isFetching,
     followingInProgress: state.userPage.followingInProgress,
-    isAuth: state.auth.isAuth
+    isAuth: state.auth.isAuth,
   };
 };
 
-let withRedirect = withAuthRedirect(UsersContainer)
+// let withRedirect = withAuthRedirect(UsersContainer);
+// export default connect(mapStateToProps, {
+//   follow,
+//   unFollow,
+//   setCurrentPage,
+//   followingInProgressAC,
+//   getUsersThunkCreator,
+// })(withRedirect);
 
-export default connect(mapStateToProps, {
-  follow,
-  unFollow,
-  setCurrentPage,
-  followingInProgressAC,
-  getUsersThunkCreator
-})(withRedirect);
-
-
-
-
-
-
-
-
+export default compose(
+  withAuthRedirect,
+  connect(mapStateToProps, {
+    follow,
+    unFollow,
+    setCurrentPage,
+    followingInProgressAC,
+    getUsersThunkCreator,
+  })
+)(UsersContainer);
