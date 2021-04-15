@@ -12,6 +12,7 @@ import Users from "./Users";
 import Preloader from "../Common/Preloader/Preloader";
 import { RootStoreType } from "../../redux/redux-store";
 import { Redirect } from "react-router";
+import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 
 type UsersContainerType = {
   users: Array<UsersType>;
@@ -71,13 +72,15 @@ let mapStateToProps = (state: RootStoreType) => {
   };
 };
 
+let withRedirect = withAuthRedirect(UsersContainer)
+
 export default connect(mapStateToProps, {
   follow,
   unFollow,
   setCurrentPage,
   followingInProgressAC,
   getUsersThunkCreator
-})(UsersContainer);
+})(withRedirect);
 
 
 
