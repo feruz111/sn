@@ -2,25 +2,38 @@ import React, { ChangeEvent } from "react";
 
 export type ProfileStatusType = {
   reduxStatus: any;
-  updateStatusThunkCreator: (status: string) => void
+  updateStatusThunkCreator: (status: string) => void;
 };
 
-class ProfileStatus extends React.Component<ProfileStatusType, {}> {
+type StateType = {
+  editMode: boolean;
+  status: string;
+};
+
+class ProfileStatus extends React.Component<ProfileStatusType, StateType> {
   state = {
     editMode: true,
-    status: this.props.reduxStatus
+    status: this.props.reduxStatus,
   };
   activateEditMode() {
     this.setState({ editMode: false });
   }
   deActivateEditMode() {
     this.setState({ editMode: true });
-    this.props.updateStatusThunkCreator(this.state.status)
+    this.props.updateStatusThunkCreator(this.state.status);
   }
-  onStatusChange = (e:ChangeEvent<HTMLInputElement>) => {
+  onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
     this.setState({
-      status: e.currentTarget.value
-    })
+      status: e.currentTarget.value,
+    });
+  };
+
+  componentDidUpdate(prevProps: ProfileStatusType, prevState: StateType) {
+    if (prevProps.reduxStatus !== this.props.reduxStatus) {
+      this.setState({
+        status: this.props.reduxStatus,
+      });
+    }
   }
   render() {
     return (
@@ -34,7 +47,7 @@ class ProfileStatus extends React.Component<ProfileStatusType, {}> {
         ) : (
           <div>
             <input
-            onChange={this.onStatusChange}
+              onChange={this.onStatusChange}
               autoFocus
               onBlur={this.deActivateEditMode.bind(this)}
               value={this.state.status}
