@@ -12,6 +12,8 @@ type ProfileType = {
 
 export type ProfileInfoType = {
   profile: ProfileType;
+  reduxStatus: string
+  updateStatusThunkCreator: (status:string) => void
 };
 
 const ProfileInfo = (props: ProfileInfoType) => {
@@ -26,7 +28,7 @@ const ProfileInfo = (props: ProfileInfoType) => {
       </div> */}
       <div className={s.descriptionBlock}>
         <img src={props.profile.photos.large} />
-       <ProfileStatus status="status" />
+       <ProfileStatus reduxStatus={props.reduxStatus} updateStatusThunkCreator={props.updateStatusThunkCreator} />
       </div>
     </div>
   );

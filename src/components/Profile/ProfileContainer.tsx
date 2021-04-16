@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import Profile from "./Profile";
 import { connect } from "react-redux";
 import {
-  setUserProfile,
+  updateStatusThunkCreator,
+  getStatusThunkCreator,
   getUserProfileThunkCreator,
 } from "../../redux/profileReducer";
 import { RouteComponentProps, withRouter } from "react-router";
@@ -17,10 +18,13 @@ type PathParamsType = {
 type MapStatePropsType = {
   profile?: any;
   isAuth?: boolean;
+  reduxStatus: string
 };
 type MapDispatchPropsType = {
   setUserProfile: (profile: any) => void;
   getUserProfileThunkCreator: (userId: string) => void;
+  getStatusThunkCreator: (userId:string) => void
+  updateStatusThunkCreator: (status:string) => void
 };
 
 type OwnPropsType = MapStatePropsType & MapDispatchPropsType;
@@ -33,12 +37,14 @@ function ProfileContainer(props: PropsType) {
       userId = "2";
     }
     props.getUserProfileThunkCreator(userId);
+    props.getStatusThunkCreator(userId);
   }, []);
-  return <Profile {...props} profile={props.profile} />;
+  return <Profile {...props} profile={props.profile} reduxStatus={props.reduxStatus} updateStatusThunkCreator={props.updateStatusThunkCreator} />;
 }
 
 let mapStateToProps = (state: RootStoreType): MapStatePropsType => ({
   profile: state.profilePage.profile,
+  reduxStatus: state.profilePage.status
 });
 
 // let WithURLDataContainerComponent = withRouter(AuthRedirectComponent);
@@ -50,6 +56,6 @@ let mapStateToProps = (state: RootStoreType): MapStatePropsType => ({
 
 export default compose(
   withAuthRedirect,
-  connect(mapStateToProps, { getUserProfileThunkCreator }),
+  connect(mapStateToProps, { getUserProfileThunkCreator,getStatusThunkCreator,updateStatusThunkCreator }),
   withRouter
 )(ProfileContainer);
