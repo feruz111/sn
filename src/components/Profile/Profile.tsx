@@ -19,6 +19,6 @@ const Profile: React.FC<ProfileType> = (props) => {
       <MyPostsContainer />
     </div>
   );
-};
+};  
 
 export default Profile;

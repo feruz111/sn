@@ -5,6 +5,7 @@ const SET_STATUS = "SET_STATUS";
 
 export type AddPostActionType = {
   type: "ADD-POST";
+  newPostText:string
 };
 export type UpdateNewPostTextActionType = {
   type: "UPDATE-NEW-POST-TEXT";
@@ -27,7 +28,6 @@ export type PostsType = {
 
 export type ProfilePageType = {
   posts: Array<PostsType>;
-  newPostText: string;
   profile: null | string;
   status: string;
 };
@@ -40,7 +40,6 @@ let initialState: ProfilePageType = {
     { id: 4, message: "yo" },
     { id: 5, message: "yo" },
   ],
-  newPostText: "it-kamasutra",
   profile: null,
   status: "",
 };
@@ -59,20 +58,15 @@ export const profileReducer = (
     case "ADD-POST":
       return {
         ...state,
-        newPostText: "",
         posts: [
           ...state.posts,
           {
             id: 5,
-            message: state.newPostText,
+            message: action.newPostText,
             likesCount: 0,
           },
         ],
       };
-
-    case "UPDATE-NEW-POST-TEXT": {
-      return { ...state, newPostText: action.text };
-    }
     case "SET_USER_PROFILE": {
       return { ...state, profile: action.profile };
     }
@@ -84,20 +78,12 @@ export const profileReducer = (
   }
 };
 
-export const addPostActionCreator = (): AddPostActionType => {
+export const addPostActionCreator = (newPostText:string): AddPostActionType => {
   return {
-    type: "ADD-POST",
+    type: "ADD-POST",newPostText
   };
 };
 
-export const updateNewPostTextActionCreator = (
-  text: string
-): UpdateNewPostTextActionType => {
-  return {
-    type: "UPDATE-NEW-POST-TEXT",
-    text,
-  };
-};
 export const setUserProfile = (profile: string): SetUserProfileActionType => {
   return {
     type: "SET_USER_PROFILE",
@@ -110,6 +96,9 @@ export const setStatusAC = (status: string): SetStatusActionType => {
     status,
   };
 };
+
+
+//THUNKS
 export const getUserProfileThunkCreator = (userId: string) => {
   return (dispatch: any) => {
     usersAPI.profileAPI(userId).then((data: any) => {
