@@ -4,7 +4,6 @@ import Header from "./Header";
 import { getAuthUserDataThunkCreator, setAuthUserData } from "../../redux/auth-reducer";
 import axios from "axios";
 import { RootStoreType } from "../../redux/redux-store";
-import { authAPI } from "../../api/api";
 
 type HeaderContainerType = {
   isAuth: boolean;

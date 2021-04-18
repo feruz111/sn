@@ -20,14 +20,14 @@ let mapDispatchToProps = (dispatch: Dispatch) => {
   };
 };
 
+export default compose(
+  withAuthRedirect,
+  connect(mapStateToProps, mapDispatchToProps)
+)(Dialogs);
+
 // let AuthRedirectComponent = withAuthRedirect(Dialogs);
 
 // const DialogsContainer = connect(
 //   mapStateToProps,
 //   mapDispatchToProps
 // )(AuthRedirectComponent);
-
-export default compose(
-  withAuthRedirect,
-  connect(mapStateToProps, mapDispatchToProps)
-)(Dialogs);

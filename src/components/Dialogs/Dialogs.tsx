@@ -9,6 +9,7 @@ import {
 } from "../../redux/dialogsReducer";
 import { Redirect } from "react-router";
 import { Field, Form, reduxForm } from "redux-form";
+import { AddMessageFormRedux } from "./Forms/AddMessageForm";
 
 export type DialogsPageType = {
   newPostText: string;
@@ -43,19 +44,5 @@ const Dialogs: React.FC<DialogsPageType> = (props) => {
   );
 };
 
-const AddMessageForm = (props: any) => {
-  return (
-    <form onSubmit={props.handleSubmit}>
-      <Field
-        placeholder="Enter your message"
-        name={"addMessage"}
-        component={"textarea"}
-      />
-        <button>Add message</button>
 
-    </form>
-  );
-};
-
-const AddMessageFormRedux = reduxForm({ form: "addMessage" })(AddMessageForm);
 export default Dialogs;

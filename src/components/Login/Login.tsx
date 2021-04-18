@@ -1,25 +1,8 @@
 import React from "react";
 import { Field, reduxForm } from "redux-form";
+import { LoginReduxForm } from "./Forms/LoginReduxForm";
 
-const LoginForm = (props: any) => {
-  return (
-    <form onSubmit={props.handleSubmit}>
-      <div>
-        <Field placeholder={"Login"} name={"login"} component={"input"} />
-      </div>
-      <div>
-        <Field placeholder={"Password"} name={"password"} component={"input"} />
-      </div>
-      <div>
-        <Field component={"input"} name={"rememberMe"} type="checkbox" />
-        Remember me
-      </div>
-      <button>Login</button>
-    </form>
-  );
-};
 
-let LoginReduxForm = reduxForm({ form: "login" })(LoginForm);
 
 const Login = () => {
   const onSubmit = (formData: any) => {
