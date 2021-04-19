@@ -1,14 +1,15 @@
+import { ProfileActionsType, ProfilePageType, ProfileType } from "../../../redux/profileReducer";
 import Preloader from "../../Common/Preloader/Preloader";
 import s from "./ProfileInfo.module.css";
 import ProfileStatus from "./ProfileStatus";
 
-type PhotosType = {
-  large: string;
-};
+// type PhotosType = {
+//   large: string;
+// };
 
-type ProfileType = {
-  photos: PhotosType;
-};
+// type ProfileType = {
+//   photos: PhotosType;
+// };
 
 export type ProfileInfoType = {
   profile: ProfileType;
@@ -17,9 +18,6 @@ export type ProfileInfoType = {
 };
 
 const ProfileInfo = (props: ProfileInfoType) => {
-  if (!props.profile) {
-    return <Preloader />;
-  }
 
   return (
     <div>

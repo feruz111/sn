@@ -4,13 +4,13 @@ import { Route } from "react-router-dom";
 import UsersContainer from "./components/Users/UsersContainer";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import WithProfileContainer from "./components/Profile/ProfileContainer";
-import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
+import { HeaderContainerWrap } from "./components/Header/HeaderContainer";
 
 function App() {
   return (
     <div className="app-wrapper">
-      <HeaderContainer />
+      <HeaderContainerWrap />
       <Navbar />
       <div className="app-wrapper-content">
         <Route path="/dialogs" render={() => <DialogsContainer />} />

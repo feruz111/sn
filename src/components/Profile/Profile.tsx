@@ -1,17 +1,18 @@
 import React from "react";
 import { Redirect } from "react-router";
+import { ProfilePageType, ProfileType } from "../../redux/profileReducer";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import s from "./Profile.module.css";
-import ProfileInfo from "./ProfileInfo/ProfileInfo";
+import ProfileInfo, { ProfileInfoType } from "./ProfileInfo/ProfileInfo";
 
-type ProfileType = {
-    profile: any 
+type ProfilePropsType = {
+    profile: ProfileType 
     isAuth?:boolean
     reduxStatus: string
     updateStatusThunkCreator: (string:string) => void
 }
 
-const Profile: React.FC<ProfileType> = (props) => {
+const Profile = (props:ProfilePropsType) => {
 
   return (
     <div className={s.content}>

@@ -5,7 +5,7 @@ const SET_STATUS = "SET_STATUS";
 
 export type AddPostActionType = {
   type: "ADD-POST";
-  newPostText:string
+  newPostText: string;
 };
 export type UpdateNewPostTextActionType = {
   type: "UPDATE-NEW-POST-TEXT";
@@ -13,7 +13,7 @@ export type UpdateNewPostTextActionType = {
 };
 export type SetUserProfileActionType = {
   type: "SET_USER_PROFILE";
-  profile: string;
+  profile: ProfileType;
 };
 export type SetStatusActionType = {
   type: "SET_STATUS";
@@ -28,9 +28,35 @@ export type PostsType = {
 
 export type ProfilePageType = {
   posts: Array<PostsType>;
-  profile: null | string;
+  profile: null | ProfileType;
   status: string;
 };
+
+export type ProfileType = {
+  userId: number;
+  lookingForAJob: boolean;
+  lookingForAJobDescription: string;
+  fullName: string;
+  contacts: ContactsType;
+  photos: PhotosType;
+ 
+};
+
+type PhotosType = {
+  small: string;
+  large: string;
+  
+}
+type ContactsType = {
+  github: string;
+  vk: string;
+  facebook: string;
+  instagram: string;
+  twitter: string;
+  website: string;
+  youtube: string;
+  mainLink: string;
+}
 
 let initialState: ProfilePageType = {
   posts: [
@@ -78,13 +104,16 @@ export const profileReducer = (
   }
 };
 
-export const addPostActionCreator = (newPostText:string): AddPostActionType => {
+export const addPostActionCreator = (
+  newPostText: string
+): AddPostActionType => {
   return {
-    type: "ADD-POST",newPostText
+    type: "ADD-POST",
+    newPostText,
   };
 };
 
-export const setUserProfile = (profile: string): SetUserProfileActionType => {
+export const setUserProfile = (profile: ProfileType): SetUserProfileActionType => {
   return {
     type: "SET_USER_PROFILE",
     profile,
@@ -96,7 +125,6 @@ export const setStatusAC = (status: string): SetStatusActionType => {
     status,
   };
 };
-
 
 //THUNKS
 export const getUserProfileThunkCreator = (userId: string) => {
@@ -118,10 +146,10 @@ export const getStatusThunkCreator = (userId: string) => {
 export const updateStatusThunkCreator = (status: string) => {
   return (dispatch: any) => {
     profileAPI.updateStatus(status).then((response: any) => {
-      if(response.data.resultCode === 0){
-      // any
-      dispatch(setStatusAC(status));
-      } 
+      if (response.data.resultCode === 0) {
+        // any
+        dispatch(setStatusAC(status));
+      }
     });
   };
 };
