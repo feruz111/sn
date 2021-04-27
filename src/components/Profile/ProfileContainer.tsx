@@ -20,14 +20,14 @@ type PathParamsType = {
 type MapStatePropsType = {
   profile?: ProfileType | null;
   isAuth?: boolean;
-  reduxStatus: string
-  authorizedUserId: string | null
+  reduxStatus: string;
+  authorizedUserId: string | null;
 };
 type MapDispatchPropsType = {
   setUserProfile: (profile: ProfileType) => void;
   getUserProfileThunkCreator: (userId: string) => void;
-  getStatusThunkCreator: (userId:string) => void
-  updateStatusThunkCreator: (status:string) => void
+  getStatusThunkCreator: (userId: string) => void;
+  updateStatusThunkCreator: (status: string) => void;
 };
 
 type OwnPropsType = MapStatePropsType & MapDispatchPropsType;
@@ -35,9 +35,12 @@ type PropsType = RouteComponentProps<PathParamsType> & OwnPropsType;
 
 function ProfileContainer(props: PropsType) {
   useEffect(() => {
-    let userId:any = props.match.params.userId;
+    let userId: any = props.match.params.userId;
     if (!userId) {
-      userId = props.authorizedUserId
+      userId = props.authorizedUserId;
+      if (!userId) {
+        props.history.push("/login");
+      }
     }
     props.getUserProfileThunkCreator(userId);
     props.getStatusThunkCreator(userId);
@@ -46,14 +49,21 @@ function ProfileContainer(props: PropsType) {
     return <Preloader />;
   }
 
-  return <Profile {...props} profile={props.profile} reduxStatus={props.reduxStatus} updateStatusThunkCreator={props.updateStatusThunkCreator} />;
+  return (
+    <Profile
+      {...props}
+      profile={props.profile}
+      reduxStatus={props.reduxStatus}
+      updateStatusThunkCreator={props.updateStatusThunkCreator}
+    />
+  );
 }
 
 let mapStateToProps = (state: RootStoreType): MapStatePropsType => ({
   profile: state.profilePage.profile,
   reduxStatus: state.profilePage.status,
   authorizedUserId: state.auth.userId,
-  isAuth: state.auth.isAuth
+  isAuth: state.auth.isAuth,
 });
 
 // let WithURLDataContainerComponent = withRouter(AuthRedirectComponent);
@@ -65,6 +75,10 @@ let mapStateToProps = (state: RootStoreType): MapStatePropsType => ({
 
 export default compose(
   withAuthRedirect,
-  connect(mapStateToProps, { getUserProfileThunkCreator,getStatusThunkCreator,updateStatusThunkCreator }),
+  connect(mapStateToProps, {
+    getUserProfileThunkCreator,
+    getStatusThunkCreator,
+    updateStatusThunkCreator,
+  }),
   withRouter
 )(ProfileContainer);

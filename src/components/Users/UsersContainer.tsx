@@ -75,17 +75,8 @@ let mapStateToProps = (state: RootStoreType) => {
   };
 };
 
-// let withRedirect = withAuthRedirect(UsersContainer);
-// export default connect(mapStateToProps, {
-//   follow,
-//   unFollow,
-//   setCurrentPage,
-//   followingInProgressAC,
-//   getUsersThunkCreator,
-// })(withRedirect);
-
 export default compose(
-  withAuthRedirect,
+  // withAuthRedirect,
   connect(mapStateToProps, {
     follow,
     unFollow,

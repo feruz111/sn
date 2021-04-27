@@ -1,3 +1,4 @@
+import { Dispatch } from "redux";
 import { stopSubmit } from "redux-form";
 import { authAPI } from "../api/api";
 
@@ -46,7 +47,7 @@ export const setAuthUserData = (
   };
 };
 export const getAuthUserDataThunkCreator = () => {
-  return (dispatch: any) => {
+  return (dispatch: Dispatch) => {
     //any
     authAPI.authMeAPI().then((data) => {
       if (data.resultCode === 0) {

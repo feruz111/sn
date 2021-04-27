@@ -1,12 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import Header from "./Header";
-import {
-  getAuthUserDataThunkCreator,
-  setAuthUserData,
-  logoutTC,
-} from "../../redux/auth-reducer";
-import axios from "axios";
+import { setAuthUserData, logoutTC } from "../../redux/auth-reducer";
 import { RootStoreType } from "../../redux/redux-store";
 
 type HeaderContainerType = {
@@ -18,10 +13,6 @@ type HeaderContainerType = {
 };
 
 class HeaderContainer extends React.Component<HeaderContainerType, any> {
-  componentDidMount() {
-    this.props.getAuthUserDataThunkCreator();
-  }
-
   render() {
     return <Header {...this.props} />;
   }
@@ -36,6 +27,5 @@ let mapStateToProps = (state: RootStoreType): any => {
 
 export const HeaderContainerWrap: any = connect(mapStateToProps, {
   setAuthUserData,
-  getAuthUserDataThunkCreator,
   logoutTC,
 })(HeaderContainer);

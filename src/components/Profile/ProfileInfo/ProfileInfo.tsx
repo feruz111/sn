@@ -1,24 +1,15 @@
-import { ProfileActionsType, ProfilePageType, ProfileType } from "../../../redux/profileReducer";
+import { ProfileType } from "../../../redux/profileReducer";
 import Preloader from "../../Common/Preloader/Preloader";
 import s from "./ProfileInfo.module.css";
 import ProfileStatus from "./ProfileStatus";
 
-// type PhotosType = {
-//   large: string;
-// };
-
-// type ProfileType = {
-//   photos: PhotosType;
-// };
-
 export type ProfileInfoType = {
   profile: ProfileType;
-  reduxStatus: string
-  updateStatusThunkCreator: (status:string) => void
+  reduxStatus: string;
+  updateStatusThunkCreator: (status: string) => void;
 };
 
 const ProfileInfo = (props: ProfileInfoType) => {
-
   return (
     <div>
       {/* <div>
@@ -26,7 +17,10 @@ const ProfileInfo = (props: ProfileInfoType) => {
       </div> */}
       <div className={s.descriptionBlock}>
         <img src={props.profile.photos.large} />
-       <ProfileStatus reduxStatus={props.reduxStatus} updateStatusThunkCreator={props.updateStatusThunkCreator} />
+        <ProfileStatus
+          reduxStatus={props.reduxStatus}
+          updateStatusThunkCreator={props.updateStatusThunkCreator}
+        />
       </div>
     </div>
   );

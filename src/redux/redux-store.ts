@@ -5,12 +5,14 @@ import { dialogReducer } from "./dialogsReducer";
 import { profileReducer } from "./profileReducer";
 import { userReducer } from "./usersReducer";
 import { reducer as formReducer } from "redux-form";
+import { appReducer } from "./app-reducer";
 
 let reducers = combineReducers({
   profilePage: profileReducer,
   messagesPage: dialogReducer,
   userPage: userReducer,
   auth: authReducer,
+  app: appReducer,
   form: formReducer,
 });
 
