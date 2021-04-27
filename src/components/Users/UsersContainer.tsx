@@ -14,6 +14,14 @@ import { RootStoreType } from "../../redux/redux-store";
 import { Redirect } from "react-router";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import { compose } from "redux";
+import {
+  getPageSize,
+  getUsers,
+  getTotalUsersCount,
+  getCurrentPage,
+  getIsFetching,
+  getFollowingInProgress,
+} from "../../redux/users-selectors";
 
 type UsersContainerType = {
   users: Array<UsersType>;
@@ -65,12 +73,12 @@ class UsersContainer extends React.Component<UsersContainerType, {}> {
 
 let mapStateToProps = (state: RootStoreType) => {
   return {
-    users: state.userPage.users,
-    pageSize: state.userPage.pageSize,
-    totalUsersCount: state.userPage.totalUsersCount,
-    currentPage: state.userPage.currentPage,
-    isFetching: state.userPage.isFetching,
-    followingInProgress: state.userPage.followingInProgress,
+    users: getUsers(state),
+    pageSize: getPageSize(state),
+    totalUsersCount: getTotalUsersCount(state),
+    currentPage: getCurrentPage(state),
+    isFetching: getIsFetching(state),
+    followingInProgress: getFollowingInProgress(state),
     isAuth: state.auth.isAuth,
   };
 };
