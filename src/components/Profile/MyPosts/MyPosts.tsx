@@ -1,7 +1,10 @@
 import React from "react";
 import { Field, reduxForm } from "redux-form";
 import { PostsType, ProfilePageType } from "../../../redux/profileReducer";
-import { maxLengthCreator, required } from "../../../utils/validators/validators";
+import {
+  maxLengthCreator,
+  required,
+} from "../../../utils/validators/validators";
 import { AddNewPostFormRedux } from "./AddNewPostForm";
 import s from "./MyPosts.module.css";
 import Post from "./Post/Post";
@@ -10,15 +13,17 @@ type PropsType = {
   posts: Array<PostsType>;
   newPostText: string;
   updateNewPostText: (text: string) => void;
-  addPost: (newPostText:string) => void;
+  addPost: (newPostText: string) => void;
 };
 
-const MyPosts = (props: PropsType) => {
+const MyPosts = React.memo((props: PropsType) => {
+  console.log(("render"));
+  
   let postsElements = props.posts.map((p: PostsType) => (
     <Post message={p.message} like={p.likesCount} />
   ));
 
-  let onSubmitHandler = (value:any) => {
+  let onSubmitHandler = (value: any) => {
     props.addPost(value.addPost);
   };
 
@@ -29,8 +34,6 @@ const MyPosts = (props: PropsType) => {
       <div className={s.posts}>{postsElements}</div>
     </div>
   );
-}; 
-
-
+});
 
 export default MyPosts;
