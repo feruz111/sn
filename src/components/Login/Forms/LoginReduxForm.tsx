@@ -3,45 +3,36 @@ import {
   maxLengthCreator,
   required,
 } from "../../../utils/validators/validators";
-import { Input } from "../../Common/FormsControls/FormsControls";
+import { createField, Input } from "../../Common/FormsControls/FormsControls";
 import styles from "../../Common/FormsControls/FormsControls.module.css";
 
+// type LoginFormPropsType = {
+//   handleSubmit: () => void;
+//   error: boolean;
+// };
 
-const maxLen = maxLengthCreator(100 );
+const maxLen = maxLengthCreator(100);
 
-const LoginForm = (props: any) => {
+const LoginForm = ({ handleSubmit, error }: any) => {
+  //any
   return (
-    <form onSubmit={props.handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <div>
-        <Field
-          validate={[required, maxLen]}
-          placeholder={"Email"}
-          name={"email"}
-          component={Input}
-        />
+        {createField("Email", "email", [required], Input)}
+        {createField("Password", "password", [required], Input, {
+          type: "password",
+        })}
+        {createField(
+          null,
+          "rememberMe",
+          [],
+          Input,
+          { type: "checkbox" },
+          "remember me"
+        )}
+        {error && <div className={styles.formSubmissoinError}>{error}</div>}
+        <button>Login</button>
       </div>
-      <div>
-        <Field
-          validate={[required, maxLen]}
-          placeholder={"Password"}
-          name={"password"}
-          type={"password"}
-          component={Input}
-        />
-      </div>
-      <div>
-        <Field
-          validate={[required, maxLen]}
-          component={Input}
-          name={"rememberMe"}
-          type="checkbox"
-        />
-        Remember me
-      </div>
-      {props.error && <div className={styles.formSubmissoinError}>
-        {props.error}
-      </div>}
-      <button>Login</button>
     </form>
   );
 };

@@ -40,14 +40,14 @@ type UsersContainerType = {
 
 class UsersContainer extends React.Component<UsersContainerType, {}> {
   componentDidMount() {
-    this.props.getUsersThunkCreator(
-      this.props.currentPage,
-      this.props.pageSize
-    );
+    const { pageSize, currentPage } = this.props;
+
+    this.props.getUsersThunkCreator(currentPage, pageSize);
   }
 
   onPageChanged = (pageNumber: number) => {
-    this.props.getUsersThunkCreator(pageNumber, this.props.pageSize);
+    const { pageSize } = this.props;
+    this.props.getUsersThunkCreator(pageNumber, pageSize);
   };
 
   render() {

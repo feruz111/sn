@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 import { LoginReduxForm } from "./Forms/LoginReduxForm";
@@ -10,14 +10,14 @@ import { Redirect } from "react-router";
 //   loginTC: (email: string, password: string, rememberMe: string) => void;
 // };
 
-const Login = (props: any) => {
+const Login = ({ isAuth, loginTC }: any) => {
   // any
   const onSubmit = (formData: any) => {
     //any
-    props.loginTC(formData.email, formData.password, formData.rememberMe);
+    loginTC(formData.email, formData.password, formData.rememberMe);
   };
 
-  if (props.isAuth) {
+  if (isAuth) {
     <Redirect to={"/profile"} />;
   }
 
