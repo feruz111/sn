@@ -20,7 +20,7 @@ const MyPosts = React.memo((props: PropsType) => {
   console.log(("render"));
   
   let postsElements = props.posts.map((p: PostsType) => (
-    <Post message={p.message} like={p.likesCount} />
+    <Post key={p.id} message={p.message} like={p.likesCount} />
   ));
 
   let onSubmitHandler = (value: any) => {

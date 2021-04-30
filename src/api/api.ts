@@ -46,6 +46,9 @@ export const profileAPI = {
       },
     });
   },
+  saveProfile(profile: any) {
+    return instance.put(`profile`, profile);
+  },
 };
 
 export const authAPI = {
@@ -59,3 +62,6 @@ export const authAPI = {
     return instance.delete(`auth/login`);
   },
 };
+
+let x = instance.put("profile").then(a =>  a)
+console.log(x);

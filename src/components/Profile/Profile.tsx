@@ -12,12 +12,14 @@ type ProfilePropsType = {
   isOwner: boolean;
   updateStatusThunkCreator: (string: string) => void;
   savePhoto: (file: File) => void;
+  saveProfile: (data: any) => void;
 };
 
 const Profile = (props: ProfilePropsType) => {
   return (
     <div className={s.content}>
       <ProfileInfo
+        saveProflie={props.saveProfile}
         savePhoto={props.savePhoto}
         isOwner={props.isOwner}
         profile={props.profile}

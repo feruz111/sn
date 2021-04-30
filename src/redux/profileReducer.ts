@@ -1,5 +1,8 @@
+import { RootStoreType } from "./redux-store";
 import { profileAPI } from "./../api/api";
 import { usersAPI } from "../api/api";
+import { Dispatch } from "redux";
+import { stopSubmit } from "redux-form";
 
 const SET_STATUS = "SET_STATUS";
 const DELETE_POST = "DELETE_POST";
@@ -51,6 +54,7 @@ export type ProfileType = {
   fullName: string;
   contacts: ContactsType;
   photos: PhotosType;
+  aboutMe: string;
 };
 
 type PhotosType = {
@@ -166,22 +170,22 @@ export const savePhotoSuccess = (photos: any): any => {
 };
 
 //THUNKS
-export const getUserProfileThunkCreator = (userId: string) => {
-  return async (dispatch: any) => {
+export const getUserProfileThunkCreator = (userId: string): any => {
+  return async (dispatch: Dispatch) => {
     let response = await usersAPI.profileAPI(userId);
     // any
     dispatch(setUserProfile(response.data));
   };
 };
 export const getStatusThunkCreator = (userId: string) => {
-  return async (dispatch: any) => {
+  return async (dispatch: Dispatch) => {
     let response = await profileAPI.getStatus(userId);
     // any
     dispatch(setStatusAC(response.data));
   };
 };
 export const updateStatusThunkCreator = (status: string) => {
-  return async (dispatch: any) => {
+  return async (dispatch: Dispatch) => {
     let response = await profileAPI.updateStatus(status);
 
     if (response.data.resultCode === 0) {
@@ -192,11 +196,25 @@ export const updateStatusThunkCreator = (status: string) => {
 };
 
 export const savePhoto = (file: File) => {
-  return async (dispatch: any) => {
+  return async (dispatch: Dispatch) => {
     let response = await profileAPI.savePhoto(file);
 
     if (response.data.resultCode === 0) {
       dispatch(savePhotoSuccess(response.data.data.photos));
+    }
+  };
+};
+export const saveProfile = (profile: any) => {
+  return async (dispatch: Dispatch, getState: () => any) => {
+    const userId = getState().auth.userId;
+    let response = await profileAPI.saveProfile(profile);
+    if (response.data.resultCode === 0) {
+      dispatch(getUserProfileThunkCreator(userId));
+    } else {
+      dispatch(
+        stopSubmit("edit-profile", { _error: response.data.messages[0] })
+      );
+      return Promise.reject(response.data.messages[0]);
     }
   };
 };
