@@ -66,6 +66,8 @@ export const loginTC = (
     let response: any = await authAPI.login(email, password, rememberMe);
     if (response.resultCode === 0) {
       dispatch(getAuthUserDataThunkCreator());
+
+
     } else {
       let message =
         response.data.messages.length > 0
@@ -81,7 +83,7 @@ export const logoutTC = () => {
     //any
     let response = await authAPI.logout();
     if (response.data.resultCode === 0) {
-      dispatch(setAuthUserData(null, null, null, true));
+      dispatch(setAuthUserData(null, null, null, false));
     }
   };
 };

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 import { LoginReduxForm } from "./Forms/LoginReduxForm";
@@ -11,10 +11,12 @@ import { Redirect } from "react-router";
 // };
 
 const Login = ({ isAuth, loginTC }: any) => {
+  const [isAuthLocal, setIsAuthLocal] = useState(isAuth)
   // any
   const onSubmit = (formData: any) => {
     //any
     loginTC(formData.email, formData.password, formData.rememberMe);
+    setIsAuthLocal(!isAuth)
   };
 
   if (isAuth) {

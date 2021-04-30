@@ -5,6 +5,7 @@ import {
   updateStatusThunkCreator,
   getStatusThunkCreator,
   getUserProfileThunkCreator,
+  savePhoto,
   ProfileType,
 } from "../../redux/profileReducer";
 import { RouteComponentProps, withRouter } from "react-router";
@@ -28,35 +29,52 @@ type MapDispatchPropsType = {
   getUserProfileThunkCreator: (userId: string) => void;
   getStatusThunkCreator: (userId: string) => void;
   updateStatusThunkCreator: (status: string) => void;
+  savePhoto: (file: File) => void;
 };
 
 type OwnPropsType = MapStatePropsType & MapDispatchPropsType;
 type PropsType = RouteComponentProps<PathParamsType> & OwnPropsType;
 
-function ProfileContainer(props: PropsType) {
-  useEffect(() => {
-    let userId: any = props.match.params.userId;
+class ProfileContainer extends React.Component<PropsType, {}> {
+  refreshProfile() {
+    let userId: any = this.props.match.params.userId;
     if (!userId) {
-      userId = props.authorizedUserId;
+      userId = this.props.authorizedUserId;
       if (!userId) {
-        props.history.push("/login");
+        this.props.history.push("/login");
       }
     }
-    props.getUserProfileThunkCreator(userId);
-    props.getStatusThunkCreator(userId);
-  }, []);
-  if (!props.profile) {
-    return <Preloader />;
+    this.props.getUserProfileThunkCreator(userId);
+    this.props.getStatusThunkCreator(userId);
   }
 
-  return (
-    <Profile
-      {...props}
-      profile={props.profile}
-      reduxStatus={props.reduxStatus}
-      updateStatusThunkCreator={props.updateStatusThunkCreator}
-    />
-  );
+  componentDidMount() {
+    this.refreshProfile();
+  }
+
+  componentDidUpdate(prevProps: PropsType, prevState: any, snapshot: any) {
+    if (this.props.match.params.userId != prevProps.match.params.userId) {
+      this.refreshProfile();
+    }
+  }
+
+  render() {
+    if (!this.props.profile) {
+      return <Preloader />;
+    }
+
+    // console.log("RENDER PROFILE");
+    return (
+      <Profile
+        {...this.props}
+        isOwner={!this.props.match.params.userId}
+        profile={this.props.profile}
+        reduxStatus={this.props.reduxStatus}
+        updateStatusThunkCreator={this.props.updateStatusThunkCreator}
+        savePhoto={this.props.savePhoto}
+      />
+    );
+  }
 }
 
 let mapStateToProps = (state: RootStoreType): MapStatePropsType => ({
@@ -66,19 +84,13 @@ let mapStateToProps = (state: RootStoreType): MapStatePropsType => ({
   isAuth: state.auth.isAuth,
 });
 
-// let WithURLDataContainerComponent = withRouter(AuthRedirectComponent);
-// let AuthRedirectComponent = withAuthRedirect(ProfileContainer);
-// export default connect(mapStateToProps, {
-//   setUserProfile,
-//   getUserProfileThunkCreator,
-// })(WithURLDataContainerComponent);
-
 export default compose(
   withAuthRedirect,
   connect(mapStateToProps, {
     getUserProfileThunkCreator,
     getStatusThunkCreator,
     updateStatusThunkCreator,
+    savePhoto,
   }),
   withRouter
 )(ProfileContainer);

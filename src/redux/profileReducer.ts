@@ -3,6 +3,7 @@ import { usersAPI } from "../api/api";
 
 const SET_STATUS = "SET_STATUS";
 const DELETE_POST = "DELETE_POST";
+const SAVE_PHOTO_SUCCESS = "SAVE_PHOTO_SUCCESS";
 
 export type AddPostActionType = {
   type: "ADD-POST";
@@ -24,6 +25,12 @@ export type DeletePostType = {
   type: "DELETE_POST";
   postId: number;
 };
+
+export type SavePhotoSuccessType = {
+  type: "SAVE_PHOTO_SUCCESS";
+  photos: any;
+};
+// export type SavePhotoSuccessType = any;
 
 export type PostsType = {
   id: number;
@@ -78,7 +85,8 @@ export type ProfileActionsType =
   | UpdateNewPostTextActionType
   | SetUserProfileActionType
   | SetStatusActionType
-  | DeletePostType;
+  | DeletePostType
+  | SavePhotoSuccessType;
 
 export const profileReducer = (
   state = initialState,
@@ -107,6 +115,13 @@ export const profileReducer = (
       return {
         ...state,
         posts: state.posts.filter((p) => p.id !== action.postId),
+      };
+    }
+    case SAVE_PHOTO_SUCCESS: {
+      return {
+        ...state,
+        //@ts-ignore
+        profile: { ...state.profile, photos: action.photos },
       };
     }
     default:
@@ -143,6 +158,12 @@ export const deletePost = (postId: number): DeletePostType => {
     postId,
   };
 };
+export const savePhotoSuccess = (photos: any): any => {
+  return {
+    type: SAVE_PHOTO_SUCCESS,
+    photos,
+  };
+};
 
 //THUNKS
 export const getUserProfileThunkCreator = (userId: string) => {
@@ -166,6 +187,16 @@ export const updateStatusThunkCreator = (status: string) => {
     if (response.data.resultCode === 0) {
       // any
       dispatch(setStatusAC(status));
+    }
+  };
+};
+
+export const savePhoto = (file: File) => {
+  return async (dispatch: any) => {
+    let response = await profileAPI.savePhoto(file);
+
+    if (response.data.resultCode === 0) {
+      dispatch(savePhotoSuccess(response.data.data.photos));
     }
   };
 };

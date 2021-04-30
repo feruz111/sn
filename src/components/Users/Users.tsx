@@ -1,9 +1,7 @@
 import React from "react";
-import { NavLink, Redirect } from "react-router-dom";
 import { UsersType } from "../../redux/usersReducer";
 import Paginator from "../Common/Paginator/Paginator";
 import User from "./User";
-import s from "./Users.module.css";
 
 type UsersContainerPropsType = {
   users: Array<UsersType>;

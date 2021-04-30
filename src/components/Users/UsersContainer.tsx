@@ -1,27 +1,25 @@
 import React from "react";
 import { connect } from "react-redux";
+import { compose } from "redux";
+import { RootStoreType } from "../../redux/redux-store";
+import {
+  getCurrentPage,
+  getFollowingInProgress,
+  getIsFetching,
+  getPageSize,
+  getTotalUsersCount,
+  getUsers,
+} from "../../redux/users-selectors";
 import {
   follow,
+  followingInProgressAC,
+  getUsersThunkCreator,
   setCurrentPage,
   unFollow,
   UsersType,
-  followingInProgressAC,
-  getUsersThunkCreator,
 } from "../../redux/usersReducer";
-import Users from "./Users";
 import Preloader from "../Common/Preloader/Preloader";
-import { RootStoreType } from "../../redux/redux-store";
-import { Redirect } from "react-router";
-import { withAuthRedirect } from "../../hoc/withAuthRedirect";
-import { compose } from "redux";
-import {
-  getPageSize,
-  getUsers,
-  getTotalUsersCount,
-  getCurrentPage,
-  getIsFetching,
-  getFollowingInProgress,
-} from "../../redux/users-selectors";
+import Users from "./Users";
 
 type UsersContainerType = {
   users: Array<UsersType>;

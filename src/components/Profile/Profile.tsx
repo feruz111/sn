@@ -6,20 +6,27 @@ import s from "./Profile.module.css";
 import ProfileInfo, { ProfileInfoType } from "./ProfileInfo/ProfileInfo";
 
 type ProfilePropsType = {
-    profile: ProfileType 
-    isAuth?:boolean
-    reduxStatus: string
-    updateStatusThunkCreator: (string:string) => void
-}
+  profile: ProfileType;
+  isAuth?: boolean;
+  reduxStatus: string;
+  isOwner: boolean;
+  updateStatusThunkCreator: (string: string) => void;
+  savePhoto: (file: File) => void;
+};
 
-const Profile = (props:ProfilePropsType) => {
-
+const Profile = (props: ProfilePropsType) => {
   return (
     <div className={s.content}>
-      <ProfileInfo profile={props.profile} reduxStatus={props.reduxStatus} updateStatusThunkCreator={props.updateStatusThunkCreator}/>
+      <ProfileInfo
+        savePhoto={props.savePhoto}
+        isOwner={props.isOwner}
+        profile={props.profile}
+        reduxStatus={props.reduxStatus}
+        updateStatusThunkCreator={props.updateStatusThunkCreator}
+      />
       <MyPostsContainer />
     </div>
   );
-};  
+};
 
 export default Profile;
