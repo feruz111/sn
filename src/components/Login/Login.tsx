@@ -10,13 +10,16 @@ import { Redirect } from "react-router";
 //   loginTC: (email: string, password: string, rememberMe: string) => void;
 // };
 
-const Login = ({ isAuth, loginTC }: any) => {
-  const [isAuthLocal, setIsAuthLocal] = useState(isAuth)
+const Login = ({ isAuth, loginTC, captchaUrl }: any) => {
   // any
   const onSubmit = (formData: any) => {
     //any
-    loginTC(formData.email, formData.password, formData.rememberMe);
-    setIsAuthLocal(!isAuth)
+    loginTC(
+      formData.email,
+      formData.password,
+      formData.rememberMe,
+      formData.captcha
+    );
   };
 
   if (isAuth) {
@@ -26,13 +29,14 @@ const Login = ({ isAuth, loginTC }: any) => {
   return (
     <div>
       <h1>Login</h1>
-      <LoginReduxForm onSubmit={onSubmit} />
+      <LoginReduxForm onSubmit={onSubmit} captchaUrl={captchaUrl} />
     </div>
   );
 };
 
 let mapStateToProps = (state: RootStoreType) => {
   return {
+    captchaUrl: state.auth.captchaUrl,
     isAuth: state.auth.isAuth,
   };
 };

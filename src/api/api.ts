@@ -55,13 +55,25 @@ export const authAPI = {
   authMeAPI() {
     return instance.get(`auth/me`).then((response) => response.data);
   },
-  login(email: string, password: string, rememberMe: boolean) {
-    return instance.post(`auth/login`, { email, password, rememberMe });
+  login(
+    email: string,
+    password: string,
+    rememberMe: boolean,
+    captcha: null | string = null
+  ) {
+    return instance.post(`auth/login`, {
+      email,
+      password,
+      rememberMe,
+      captcha,
+    });
   },
   logout() {
     return instance.delete(`auth/login`);
   },
 };
-
-let x = instance.put("profile").then(a =>  a)
-console.log(x);
+export const securityAPI = {
+  getCaptchaUrl() {
+    return instance.get(`security/get-captcha-url`);
+  },
+};

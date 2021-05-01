@@ -13,7 +13,7 @@ import styles from "../../Common/FormsControls/FormsControls.module.css";
 
 const maxLen = maxLengthCreator(100);
 
-const LoginForm = ({ handleSubmit, error }: any) => {
+const LoginForm = ({ handleSubmit, error, captchaUrl }: any) => {
   //any
   return (
     <form onSubmit={handleSubmit}>
@@ -30,6 +30,9 @@ const LoginForm = ({ handleSubmit, error }: any) => {
           { type: "checkbox" },
           "remember me"
         )}
+        {captchaUrl && <img src={captchaUrl} />}
+        {captchaUrl &&
+          createField("Symbols from image", "captcha", [required], Input)}
         {error && <div className={styles.formSubmissoinError}>{error}</div>}
         <button>Login</button>
       </div>
@@ -37,4 +40,4 @@ const LoginForm = ({ handleSubmit, error }: any) => {
   );
 };
 
-export const LoginReduxForm = reduxForm({ form: "login" })(LoginForm);
+export const LoginReduxForm: any = reduxForm({ form: "login" })(LoginForm);
