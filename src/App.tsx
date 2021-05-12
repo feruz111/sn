@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Route, withRouter } from "react-router-dom";
+import { Redirect, Route, Switch, withRouter } from "react-router-dom";
 import { compose } from "redux";
 import "./App.css";
 import Preloader from "./components/Common/Preloader/Preloader";
@@ -15,8 +15,19 @@ import { RootStoreType } from "./redux/redux-store";
 
 class App extends React.Component<any, any> {
   //any
+
+  catchAllUnHandledErrors = (params: any) => {
+    alert("some error");
+  };
   componentDidMount() {
     this.props.initializeApp();
+    window.addEventListener("unhandledrejection", this.catchAllUnHandledErrors);
+  }
+  componentWillUnmount() {
+    window.removeEventListener(
+      "unhandledrejection",
+      this.catchAllUnHandledErrors
+    );
   }
 
   render() {
@@ -28,13 +39,17 @@ class App extends React.Component<any, any> {
         <HeaderContainerWrap />
         <Navbar />
         <div className="app-wrapper-content">
-          <Route path="/dialogs" render={() => <DialogsContainer />} />
-          <Route
-            path="/profile/:userId?"
-            render={() => <WithProfileContainer />}
-          />
-          <Route path="/users" component={UsersContainer} />
-          <Route path="/login" component={Login} />
+          <Switch>
+            <Route exact path="/" render={() => <Redirect to={"/profile"} />} />
+            <Route path="/dialogs" render={() => <DialogsContainer />} />
+            <Route
+              path="/profile/:userId?"
+              render={() => <WithProfileContainer />}
+            />
+            <Route path="/users" component={UsersContainer} />
+            <Route path="/login" component={Login} />
+            <Route path="*" render={() => <div>404 NOT FOUND</div>} />
+          </Switch>
         </div>
       </div>
     );
