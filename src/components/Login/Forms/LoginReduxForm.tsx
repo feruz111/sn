@@ -6,10 +6,11 @@ import {
 import { createField, Input } from "../../Common/FormsControls/FormsControls";
 import styles from "../../Common/FormsControls/FormsControls.module.css";
 
-// type LoginFormPropsType = {
-//   handleSubmit: () => void;
-//   error: boolean;
-// };
+type LoginFormPropsType = {
+  handleSubmit: () => void;
+  error: boolean;
+  captchaUrl: string | null;
+};
 
 const maxLen = maxLengthCreator(100);
 

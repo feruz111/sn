@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
-import { UsersType } from "../../../redux/usersReducer";
 import s from "./Paginator.module.css";
 
 type UsersContainerPropsType = {

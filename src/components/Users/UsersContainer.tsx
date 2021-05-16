@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
-import { RootStoreType } from "../../redux/redux-store";
+import { RootStoreType } from "../../redux/store";
 import {
   getCurrentPage,
   getFollowingInProgress,
@@ -17,7 +17,7 @@ import {
   setCurrentPage,
   unFollow,
   UsersType,
-} from "../../redux/usersReducer";
+} from "../../redux/users-reducer";
 import Preloader from "../Common/Preloader/Preloader";
 import Users from "./Users";
 

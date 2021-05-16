@@ -4,18 +4,21 @@ import { Redirect, Route, Switch, withRouter } from "react-router-dom";
 import { compose } from "redux";
 import "./App.css";
 import Preloader from "./components/Common/Preloader/Preloader";
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import { DialogsContainer } from "./components/Dialogs/DialogsContainer";
 import { HeaderContainerWrap } from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
 import Navbar from "./components/Navbar/Navbar";
-import WithProfileContainer from "./components/Profile/ProfileContainer";
+import { WithProfileContainer } from "./components/Profile/ProfileContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import { initializeApp } from "./redux/app-reducer";
-import { RootStoreType } from "./redux/redux-store";
+import { RootStoreType } from "./redux/store";
 
-class App extends React.Component<any, any> {
-  //any
+type PropsType = {
+  initializeApp: () => void;
+  initialized: boolean;
+};
 
+class App extends React.Component<PropsType> {
   catchAllUnHandledErrors = (params: any) => {
     alert("some error");
   };

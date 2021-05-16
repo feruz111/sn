@@ -1,6 +1,6 @@
 import React from "react";
 import { Field, reduxForm } from "redux-form";
-import { PostsType, ProfilePageType } from "../../../redux/profileReducer";
+import { PostsType, ProfilePageType } from "../../../redux/profile-reducer";
 import {
   maxLengthCreator,
   required,

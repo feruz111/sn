@@ -1,9 +1,9 @@
-import { addMessageActionCreator } from "../../redux/dialogsReducer";
+import { addMessageActionCreator } from "../../redux/dialogs-reducer";
 import Dialogs, { DialogsPageType } from "./Dialogs";
 import { connect } from "react-redux";
-import { RootStoreType } from "../../redux/redux-store";
+import { AppActionsType, RootStoreType } from "../../redux/store";
 import { compose, Dispatch } from "redux";
-import { withAuthRedirect } from "../../hoc/withAuthRedirect";
+import withAuthRedirect from "../../hoc/withAuthRedirect";
 
 let mapStateToProps = (state: RootStoreType) => {
   return {
@@ -12,7 +12,7 @@ let mapStateToProps = (state: RootStoreType) => {
   };
 };
 
-let mapDispatchToProps = (dispatch: Dispatch) => {
+let mapDispatchToProps = (dispatch: Dispatch<AppActionsType>) => {
   return {
     addMessage: (text: string) => {
       dispatch(addMessageActionCreator(text));
@@ -20,7 +20,7 @@ let mapDispatchToProps = (dispatch: Dispatch) => {
   };
 };
 
-export default compose(
+export const DialogsContainer:any = compose(
   withAuthRedirect,
   connect(mapStateToProps, mapDispatchToProps)
 )(Dialogs);

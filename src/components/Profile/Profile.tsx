@@ -1,6 +1,7 @@
 import React from "react";
 import { Redirect } from "react-router";
-import { ProfilePageType, ProfileType } from "../../redux/profileReducer";
+import { ProfilePutTypes } from "../../api/types";
+import { ProfilePageType, ProfileType } from "../../redux/profile-reducer";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import s from "./Profile.module.css";
 import ProfileInfo, { ProfileInfoType } from "./ProfileInfo/ProfileInfo";
@@ -12,7 +13,7 @@ type ProfilePropsType = {
   isOwner: boolean;
   updateStatusThunkCreator: (string: string) => void;
   savePhoto: (file: File) => void;
-  saveProfile: (data: any) => void;
+  saveProfile: (data: ProfilePutTypes) => void;
 };
 
 const Profile = (props: ProfilePropsType) => {

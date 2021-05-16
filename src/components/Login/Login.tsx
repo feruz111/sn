@@ -3,17 +3,29 @@ import { connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 import { LoginReduxForm } from "./Forms/LoginReduxForm";
 import { loginTC } from "../../redux/auth-reducer";
-import { RootStoreType } from "../../redux/redux-store";
+import { RootStoreType } from "../../redux/store";
 import { Redirect } from "react-router";
 
-// type LoginPropsType = {
-//   loginTC: (email: string, password: string, rememberMe: string) => void;
-// };
+type LoginPropsType = {
+  loginTC: (
+    email: string,
+    password: string,
+    rememberMe: boolean,
+    captcha: string
+  ) => Promise<void>;
+  captchaUrl: string | null;
+  isAuth: boolean;
+};
 
-const Login = ({ isAuth, loginTC, captchaUrl }: any) => {
-  // any
-  const onSubmit = (formData: any) => {
-    //any
+type formDataType = {
+  email: string;
+  password: string;
+  rememberMe: boolean;
+  captcha: string;
+};
+
+const Login = ({ isAuth, loginTC, captchaUrl }: LoginPropsType) => {
+  const onSubmit = (formData: formDataType) => {
     loginTC(
       formData.email,
       formData.password,

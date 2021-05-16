@@ -12,7 +12,7 @@ export type MessagesType = {
   message: string;
 };
 
-type ActionsType = AddMessageActionType;
+export type DialogsReducerActionsType = AddMessageActionType;
 
 export type MessagesPageType = {
   dialogs: Array<DialogsType>;
@@ -39,7 +39,7 @@ let initialState: MessagesPageType = {
   newPostText: "",
 };
 
-export const dialogReducer = (state = initialState, action: ActionsType): MessagesPageType => {
+export const dialogReducer = (state = initialState, action: DialogsReducerActionsType): MessagesPageType => {
   switch (action.type) {
     case "ADD-MESSAGE":
       return {

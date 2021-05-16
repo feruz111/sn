@@ -1,4 +1,5 @@
 import axios from "axios";
+import { ProfilePutTypes } from "./types";
 
 const instance = axios.create({
   baseURL: "https://social-network.samuraijs.com/api/1.0/",
@@ -46,7 +47,7 @@ export const profileAPI = {
       },
     });
   },
-  saveProfile(profile: any) {
+  saveProfile(profile: ProfilePutTypes) {
     return instance.put(`profile`, profile);
   },
 };

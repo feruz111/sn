@@ -1,14 +1,17 @@
-import { Field, reduxForm } from "redux-form";
-import { maxLengthCreator, required } from "../../../utils/validators/validators";
+import { Field, InjectedFormProps, reduxForm } from "redux-form";
+import {
+  maxLengthCreator,
+  required,
+} from "../../../utils/validators/validators";
 import { TextArea } from "../../Common/FormsControls/FormsControls";
 
-const maxLen = maxLengthCreator(30)
+const maxLen = maxLengthCreator(30);
 
-const AddMessageForm = (props: any) => {
+const AddMessageForm = (props: InjectedFormProps) => {
   return (
     <form onSubmit={props.handleSubmit}>
       <Field
-      validate={[required,maxLen]}
+        validate={[required, maxLen]}
         placeholder="Enter your message"
         name={"addMessage"}
         component={TextArea}

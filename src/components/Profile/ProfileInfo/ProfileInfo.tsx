@@ -1,4 +1,4 @@
-import { ProfileType } from "../../../redux/profileReducer";
+import { ProfileType } from "../../../redux/profile-reducer";
 import Preloader from "../../Common/Preloader/Preloader";
 import s from "./ProfileInfo.module.css";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
@@ -32,6 +32,8 @@ const ProfileInfo = ({
     }
   };
   const onSubmit = (formData: any) => {
+    console.log(formData);
+    
     saveProflie(formData).then(() => {
       setEditMode(false);
     });

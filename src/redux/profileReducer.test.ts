@@ -2,7 +2,7 @@ import {
   addPostActionCreator,
   deletePost,
   profileReducer,
-} from "./profileReducer";
+} from "./profile-reducer";
 
 let state: any = {
   posts: [

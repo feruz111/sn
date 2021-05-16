@@ -1,11 +1,11 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { UsersType } from "../../redux/usersReducer";
+import { UsersType } from "../../redux/users-reducer";
 import s from "./Users.module.css";
-import userPhoto from "../../assets/user.png"
+import userPhoto from "../../assets/user.png";
 
 type UsersContainerPropsType = {
-  user: any;
+  user: UsersType;
   follow: (id: number) => void;
   unFollow: (id: number) => void;
   followingInProgress: any;
@@ -17,13 +17,15 @@ const User = ({
   follow,
   unFollow,
 }: UsersContainerPropsType) => {
-  
   return (
     <div>
       <span>
         <div>
           <NavLink to={`/profile/${user.id}`}>
-            <img src={user.photos.small !== null ?user.photos.small: userPhoto} className={s.userPhoto} />
+            <img
+              src={user.photos.small !== null ? user.photos.small : userPhoto}
+              className={s.userPhoto}
+            />
           </NavLink>
         </div>
         <div>

@@ -1,6 +1,8 @@
+import { ResponseType } from "axios";
 import { Dispatch } from "redux";
 import { usersAPI } from "../api/api";
 import { updateObjectInArray } from "../utils/object-helpers";
+import { AppActionsType } from "./store";
 
 export type UsersType = {
   id: number;
@@ -8,6 +10,8 @@ export type UsersType = {
   followed: boolean;
   name: string;
   status: string;
+  uniqueUrlName: null;
+  photos: { small: string |null; large: null };
 };
 
 const FOLLOWING_IN_PROGRESS = "FOLLOWING_IN_PROGRESS";
@@ -22,7 +26,7 @@ export type UnFollowActionType = {
 };
 export type SetUsersType = {
   type: "SET_USERS";
-  users: Array<UsersType> | Array<any>;
+  users: Array<UsersType>;
 };
 export type SetCurrentPageAction = {
   type: "SET_CURRENT_PAGE";
@@ -51,7 +55,7 @@ export type UserPageType = {
   followingInProgress: any;
 };
 
-type ActionsType =
+export type UserReducerActionsType =
   | FollowActionType
   | UnFollowActionType
   | SetUsersType
@@ -71,7 +75,7 @@ let initialState: UserPageType = {
 
 export const userReducer = (
   state = initialState,
-  action: ActionsType
+  action: UserReducerActionsType
 ): UserPageType => {
   switch (action.type) {
     case "FOLLOW": {
@@ -83,6 +87,12 @@ export const userReducer = (
       };
     }
     case "UNFOLLOW": {
+      console.log(
+        updateObjectInArray(state.users, action.userId, "id", {
+          followed: true,
+        })
+      );
+
       return {
         ...state,
         users: updateObjectInArray(state.users, action.userId, "id", {
@@ -129,7 +139,7 @@ export const unFollowSuccess = (userId: number): UnFollowActionType => {
     userId,
   };
 };
-export const setUsers = (users: any): SetUsersType => {
+export const setUsers = (users: UsersType[]): SetUsersType => {
   return {
     type: "SET_USERS",
     users,
@@ -168,23 +178,24 @@ export const followingInProgressAC = (
 
 //THUNKS
 export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
-  return async (dispatch: any) => {
+  return async (dispatch: Dispatch<AppActionsType>) => {
     dispatch(toggleIsFetching(true));
     dispatch(setCurrentPage(currentPage));
     let data = await usersAPI.getUsers(currentPage, pageSize);
 
     dispatch(toggleIsFetching(false));
     dispatch(setUsers(data.items));
+    console.log(data.items);
+
     dispatch(setTotalUsersCount(data.totalCount));
   };
 };
 const followUnFollowFlow = async (
-  dispatch: Dispatch,
+  dispatch: Dispatch<AppActionsType>,
   userId: number,
-  apiMethod: any,
-  actionCreator: any
+  apiMethod: (userId: number) => void,
+  actionCreator: (userId: number) => UserReducerActionsType
 ) => {
-  //any
   dispatch(followingInProgressAC(true, userId));
   let response: any = await apiMethod(userId);
   if (response.data.resultCode === 0) {
@@ -194,7 +205,7 @@ const followUnFollowFlow = async (
 };
 
 export const follow = (userId: number) => {
-  return async (dispatch: any) => {
+  return async (dispatch: Dispatch<AppActionsType>) => {
     followUnFollowFlow(
       dispatch,
       userId,
@@ -205,7 +216,7 @@ export const follow = (userId: number) => {
 };
 
 export const unFollow = (userId: number) => {
-  return async (dispatch: any) => {
+  return async (dispatch: Dispatch<AppActionsType>) => {
     followUnFollowFlow(
       dispatch,
       userId,

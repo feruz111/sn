@@ -1,10 +1,10 @@
-import { UsersType } from "../redux/usersReducer";
+import { UsersType } from "../redux/users-reducer";
 
 export const updateObjectInArray = (
   items: any,
   itemId: number,
   objPropName: string,
-  newObjProps: any
+  newObjProps: { followed: boolean }
 ) => {
   return items.map((u: any) => {
     if (u[objPropName] === itemId) {

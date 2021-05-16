@@ -6,7 +6,7 @@ import {
   DialogsType,
   MessagesPageType,
   MessagesType,
-} from "../../redux/dialogsReducer";
+} from "../../redux/dialogs-reducer";
 import { Redirect } from "react-router";
 import { Field, Form, reduxForm } from "redux-form";
 import { AddMessageFormRedux } from "./Forms/AddMessageForm";
@@ -18,12 +18,15 @@ export type DialogsPageType = {
   isAuth: boolean;
 };
 
+export type NewMessageFormValuesType = {
+  addMessage: string
+}
+
 const Dialogs: React.FC<DialogsPageType> = (props) => {
   let messagesPage = props.messagesPage;
 
-  let onAddMessageHandler = (value:any) => {//any
+  let onAddMessageHandler = (value: any) => {
     props.addMessage(value.addMessage);
-
   };
 
   let dialogsElements = messagesPage.dialogs.map((d: DialogsType) => (
@@ -43,6 +46,5 @@ const Dialogs: React.FC<DialogsPageType> = (props) => {
     </div>
   );
 };
-
 
 export default Dialogs;

@@ -8,12 +8,13 @@ import {
   savePhoto,
   saveProfile,
   ProfileType,
-} from "../../redux/profileReducer";
+} from "../../redux/profile-reducer";
 import { RouteComponentProps, withRouter } from "react-router";
-import { RootStoreType } from "../../redux/redux-store";
-import { withAuthRedirect } from "../../hoc/withAuthRedirect";
+import { RootStoreType } from "../../redux/store";
+import withAuthRedirect from "../../hoc/withAuthRedirect";
 import { compose } from "redux";
 import Preloader from "../Common/Preloader/Preloader";
+import { ProfilePutTypes } from "../../api/types";
 
 type PathParamsType = {
   userId: string | undefined;
@@ -31,7 +32,7 @@ type MapDispatchPropsType = {
   getStatusThunkCreator: (userId: string) => void;
   updateStatusThunkCreator: (status: string) => void;
   savePhoto: (file: File) => void;
-  saveProfile: (data: any) => void;
+  saveProfile: (data: ProfilePutTypes) => void;
 };
 
 type OwnPropsType = MapStatePropsType & MapDispatchPropsType;
@@ -40,6 +41,8 @@ type PropsType = RouteComponentProps<PathParamsType> & OwnPropsType;
 class ProfileContainer extends React.Component<PropsType, {}> {
   refreshProfile() {
     let userId: any = this.props.match.params.userId;
+    console.log(userId);
+
     if (!userId) {
       userId = this.props.authorizedUserId;
       if (!userId) {
@@ -54,7 +57,7 @@ class ProfileContainer extends React.Component<PropsType, {}> {
     this.refreshProfile();
   }
 
-  componentDidUpdate(prevProps: PropsType, prevState: any, snapshot: any) {
+  componentDidUpdate(prevProps: PropsType) {
     if (this.props.match.params.userId != prevProps.match.params.userId) {
       this.refreshProfile();
     }
@@ -65,7 +68,6 @@ class ProfileContainer extends React.Component<PropsType, {}> {
       return <Preloader />;
     }
 
-    // console.log("RENDER PROFILE");
     return (
       <Profile
         {...this.props}
@@ -87,7 +89,7 @@ let mapStateToProps = (state: RootStoreType): MapStatePropsType => ({
   isAuth: state.auth.isAuth,
 });
 
-export default compose(
+export const WithProfileContainer: any = compose(
   withAuthRedirect,
   connect(mapStateToProps, {
     getUserProfileThunkCreator,
