@@ -2,7 +2,7 @@ import { ProfileType } from "../../../redux/profile-reducer";
 import Preloader from "../../Common/Preloader/Preloader";
 import s from "./ProfileInfo.module.css";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
-import userPhoto from "../../../assets/user.png";
+import userPhoto from "../../../assets/user.svg";
 import { ChangeEvent, useState } from "react";
 import ProfileDataFormReduxForm from "./ProfileDataForm";
 import { profileAPI } from "../../../api/api";

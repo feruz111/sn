@@ -2,6 +2,7 @@ import React from "react";
 import { UsersType } from "../../redux/users-reducer";
 import Paginator from "../Common/Paginator/Paginator";
 import User from "./User";
+import s from "./Users.module.css";
 
 type UsersContainerPropsType = {
   users: Array<UsersType>;
@@ -26,7 +27,22 @@ const Users = ({
   ...props
 }: UsersContainerPropsType) => {
   return (
-    <div>
+    <div className={s.usersPageContainer}>
+      <div className={s.userContainer}>
+        {users.map((u: UsersType) => {
+          return (
+            <div className={s.user}>
+              <User
+                key={u.id}
+                user={u}
+                followingInProgress={props.followingInProgress}
+                follow={props.follow}
+                unFollow={props.unFollow}
+              />
+            </div>
+          );
+        })}
+      </div>
       <Paginator
         pageSize={pageSize}
         currentPage={currentPage}
@@ -34,17 +50,6 @@ const Users = ({
         onPageChanged={onPageChanged}
         isAuth={isAuth}
       />
-      {users.map((u: UsersType) => {
-        return (
-          <User
-            key={u.id}
-            user={u}
-            followingInProgress={props.followingInProgress}
-            follow={props.follow}
-            unFollow={props.unFollow}
-          />
-        );
-      })}
     </div>
   );
 };

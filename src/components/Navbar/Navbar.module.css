@@ -1,12 +1,41 @@
-.nav{
-    grid-area: n;
-    background-color: burlywood;
-  }
+.nav {
+  grid-area: n;
+  background-color: #6c81cd;
+  min-height: 100vh;
+  padding: 20px 0 0 4px;
+}
 
-  .item{
-    color: white;
-  }
+.itemContainer {
+  display: flex;
+}
 
-  .item a.activeLink{
-      color: gold;
-  }
+.link {
+  text-decoration: none;
+  color: #eaeefb;
+  padding-top: 8px;
+  display: flex;
+  justify-content: center;
+}
+
+.link a.activeLink {
+  text-decoration: none;
+  color: gold;
+}
+
+.link:hover{
+  cursor: pointer;
+  opacity: 0.7;
+  transition: 0.5s ease;
+}
+
+.img {
+  width: 20px;
+  height: 20px;
+  margin: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}

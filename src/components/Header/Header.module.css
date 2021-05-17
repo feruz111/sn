@@ -1,14 +1,57 @@
 .header {
   grid-area: h;
-  background-color: green;
+  display: flex;
+  background-color: #f2f5ff;
 }
-.header img {
-  width: 20px;
+
+.logoImg {
+  width: 50px;
+  height: 45px;
+  margin: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 .loginBlock {
-  float: right;
+  margin-left: auto;
   padding-right: 50px;
 }
 .loginBlock a {
   color: wheat;
+}
+
+.loginBlockContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px;
+  margin-right: 20px;
+}
+
+.loginName {
+  padding-right: 5px;
+  color: #6c81cd;
+}
+
+.line {
+  width: 35px;
+  height: 2px;
+  margin: 10px;
+  background-color: #6c81cd;
+}
+
+.loginBlockContainer button {
+  border: none;
+  width: 100%;
+  height: 30px;
+  background-color: #3c5a9a;
+  color: #eaeefb;
+}
+
+.loginBlockContainer button:hover {
+  cursor: pointer;
+  opacity: 0.7;
 }

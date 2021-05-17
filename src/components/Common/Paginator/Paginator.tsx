@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import s from "./Paginator.module.css";
+import rightArrowImg from "../../../assets/rightArrow.svg";
+import leftArrowImg from "../../../assets/leftArrow.svg";
 
 type UsersContainerPropsType = {
   pageSize: number;
@@ -19,6 +21,9 @@ const Paginator = ({
   onPageChanged,
   portionSize = 10,
 }: UsersContainerPropsType) => {
+  const rightArrow = { backgroundImage: `url(${rightArrowImg})` };
+  const leftArrow = { backgroundImage: `url(${leftArrowImg})` };
+
   let pagesCount = Math.ceil(totalUsersCount / pageSize);
 
   let pages = [];
@@ -34,43 +39,51 @@ const Paginator = ({
   if (isAuth === false) return <Redirect to={"/login"} />;
 
   return (
-    <div className={s.paginator}> 
-      {portionNumber > 1 && (
-        <button
-          onClick={() => {
-            setPortionNumber(portionNumber - 1);
-          }}
-        >
-          PREV
-        </button>
-      )}
-
-      {pages
-        .filter(
-          (p) => p >= leftPortionPageNumber && p <= rightPortionPageNumber
-        )
-        .map((p) => {
-          return (
-            <span
-            className={currentPage === p ? `${s.selectedPage} ${s.page}` : s.page} 
-              key={p}
-              onClick={(e) => {
-                onPageChanged(p);
-              }}
-            >
-              {p}
-            </span>
-          );
-        })}
-      {portionCount > portionNumber && (
-        <button
-          onClick={() => {
-            setPortionNumber(portionNumber + 1);
-          }}
-        >
-          NEXT
-        </button>
-      )}
+    <div className={s.paginator}>
+      <div className={s.arrowLeftContainer}>
+        {portionNumber > 1 && (
+          <button
+          style={leftArrow}
+            className={s.arrowLeft}
+            onClick={() => {
+              setPortionNumber(portionNumber - 1);
+            }}
+          ></button>
+        )}
+      </div>
+      <div className={s.pages}>
+        {pages
+          .filter(
+            (p) => p >= leftPortionPageNumber && p <= rightPortionPageNumber
+          )
+          .map((p) => {
+            return (
+              <div
+                className={
+                  currentPage === p ? `${s.selectedPage} ${s.page}` : s.page
+                }
+                key={p}
+                onClick={(e) => {
+                  onPageChanged(p);
+                }}
+              >
+                {p}
+              </div>
+            );
+          })}
+      </div>
+      <div className={s.arrowRightContainer}>
+        {portionCount > portionNumber && (
+          <button
+            style={rightArrow}
+            className={s.arrowRight}
+            onClick={() => {
+              setPortionNumber(portionNumber + 1);
+            }}
+          >
+          </button>
+        )}
+      </div>
     </div>
   );
 };

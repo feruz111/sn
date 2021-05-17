@@ -66,7 +66,7 @@ export type UserReducerActionsType =
 
 let initialState: UserPageType = {
   users: [],
-  pageSize: 10,
+  pageSize: 8,
   totalUsersCount: 0,
   currentPage: 1,
   isFetching: true,

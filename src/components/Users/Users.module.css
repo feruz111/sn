@@ -1,4 +1,18 @@
-.userPhoto {
-    width: 100px;
-    height: 100px;
+.usersPageContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 900px;
+}
+
+.userContainer {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.user {
+  margin: 12px;
 }

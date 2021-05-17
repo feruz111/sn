@@ -1,8 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { UsersType } from "../../redux/users-reducer";
-import s from "./Users.module.css";
-import userPhoto from "../../assets/user.png";
+import s from "./User.module.css";
+import userPhoto from "../../assets/user.svg";
 
 type UsersContainerPropsType = {
   user: UsersType;
@@ -17,51 +17,45 @@ const User = ({
   follow,
   unFollow,
 }: UsersContainerPropsType) => {
+  console.log(user);
+
   return (
-    <div>
-      <span>
-        <div>
-          <NavLink to={`/profile/${user.id}`}>
-            <img
-              src={user.photos.small !== null ? user.photos.small : userPhoto}
-              className={s.userPhoto}
-            />
-          </NavLink>
-        </div>
-        <div>
-          {user.followed ? (
-            <button
-              disabled={followingInProgress.some(
-                (id: number) => id !== user.id
-              )}
-              onClick={() => {
-                unFollow(user.id);
-              }}
-            >
-              Unfollow
-            </button>
-          ) : (
-            <button
-              disabled={followingInProgress.some(
-                (id: number) => id !== user.id
-              )}
-              onClick={() => {
-                follow(user.id);
-              }}
-            >
-              Follow
-            </button>
-          )}
-        </div>
-      </span>
-      <span>
-        <div>{user.name}</div>
-        <div>{user.status}</div>
-      </span>
-      <span>
-        <div>{"user.location.city"}</div>
-        <div>{"user.location.country"}</div>
-      </span>
+    <div className={s.userPage}>
+      <div className={s.avatar}>
+        <NavLink to={`/profile/${user.id}`}>
+          <img
+            src={user.photos.small !== null ? user.photos.small : userPhoto}
+            className={s.userPhoto}
+          />
+        </NavLink>
+      </div>
+      <div className={s.userInfo}>
+        <div className={s.userName}>{user.name}</div>
+        <div className={s.userId}>Id | {user.id}</div>
+      </div>
+      <div className={s.buttonContainer}>
+        {user.followed ? (
+          <button
+            className={s.buttonFollowUnfollow}
+            disabled={followingInProgress.some((id: number) => id !== user.id)}
+            onClick={() => {
+              unFollow(user.id);
+            }}
+          >
+            Unfollow
+          </button>
+        ) : (
+          <button
+            className={s.buttonFollowUnfollow}
+            disabled={followingInProgress.some((id: number) => id !== user.id)}
+            onClick={() => {
+              follow(user.id);
+            }}
+          >
+            Follow
+          </button>
+        )}
+      </div>
     </div>
   );
 };

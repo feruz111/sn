@@ -1,11 +1,19 @@
-.app-wrapper{
+.app-wrapper {
   margin: 0 auto;
   display: grid;
   width: 1200px;
-   grid-template-areas: 
-   "h h"
-   "n c"; 
-
+  grid-template-areas:
+    "h h"
+    "n c";
   grid-template-rows: 60px 1fr;
   grid-template-columns: 2fr 10fr;
+  font-family: "Roboto", sans-serif;
+}
+
+button {
+  border: none;
+  width: 85px;
+  height: 30px;
+  background-color: #3c5a9a;
+  color: #eaeefb;
 }

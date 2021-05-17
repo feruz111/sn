@@ -19,7 +19,7 @@ type PropsType = {
 };
 
 class App extends React.Component<PropsType> {
-  catchAllUnHandledErrors = (params: any) => {
+  catchAllUnHandledErrors = () => {
     alert("some error");
   };
   componentDidMount() {

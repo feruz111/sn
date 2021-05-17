@@ -1,20 +1,21 @@
-.dialogs{
-    background-color: cornflowerblue;
-    display: grid;
-    grid-template-columns: 2fr 10fr;
+.dialogs {
+  background-color: white;
+  display: grid;
+  grid-template-columns: 2fr 10fr;
+  min-height: 100%;
 }
 
-.dialogsItems .dialog{
-    padding: 10px;
+.dialogsItems .dialog {
+  padding: 10px;
 }
 
-.dialogsItems .active{
-    color: gold;
+.dialogsItems .active {
+  color: gold;
 }
-.messages{
-    padding: 10px;
+.messages {
+  padding: 10px;
 }
 
-.messages .message{
-    color: black;
+.messages .message {
+  color: black;
 }
