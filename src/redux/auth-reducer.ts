@@ -31,6 +31,8 @@ export const authReducer = (
   switch (action.type) {
     case GET_CAPTCHA_URL_SUCCESS:
     case SET_USER_DATA: {
+      console.log(action.payload);
+      
       return { ...state, ...action.payload };
     }
     default:

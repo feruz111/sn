@@ -12,7 +12,7 @@ const ProfileDataForm = ({ handleSubmit, profile, error }: any) => {
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <button>save</button>
+        <button className={s.editSaveButton}>save</button>
       </div>
       {error && <div className={style.formSubmissoinError}>{error}</div>}
       <div>

@@ -5,6 +5,7 @@ import { LoginReduxForm } from "./Forms/LoginReduxForm";
 import { loginTC } from "../../redux/auth-reducer";
 import { RootStoreType } from "../../redux/store";
 import { Redirect } from "react-router";
+import styles from "./Login.module.css";
 
 type LoginPropsType = {
   loginTC: (
@@ -35,13 +36,15 @@ const Login = ({ isAuth, loginTC, captchaUrl }: LoginPropsType) => {
   };
 
   if (isAuth) {
-    <Redirect to={"/profile"} />;
+    return <Redirect to={"/profile"} />;
   }
 
   return (
-    <div>
-      <h1>Login</h1>
-      <LoginReduxForm onSubmit={onSubmit} captchaUrl={captchaUrl} />
+    <div className={styles.loginPage}>
+      <div>
+        <h1>Login</h1>
+        <LoginReduxForm onSubmit={onSubmit} captchaUrl={captchaUrl} />
+      </div>
     </div>
   );
 };
@@ -54,3 +57,24 @@ let mapStateToProps = (state: RootStoreType) => {
 };
 
 export default connect(mapStateToProps, { loginTC })(Login);
+
+
+
+
+
+
+
+
+
+{
+  /* <div className={styles.loginPage}>
+{isAuth ? (
+  <Redirect to={"/profile"} />
+) : (
+  <div>
+    <h1>Login</h1>
+    <LoginReduxForm onSubmit={onSubmit} captchaUrl={captchaUrl} />
+  </div>
+)}
+</div> */
+}

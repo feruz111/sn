@@ -50,7 +50,7 @@ export const createField = (
   text: string = ""
 ) => {
   return (
-    <div>
+    <div className={styles.inputElem}>
       <Field
         validate={validators}
         placeholder={placeholder}
@@ -58,7 +58,7 @@ export const createField = (
         component={component}
         {...props}
       />
-      {text}
+      <div>{text}</div>
     </div>
   );
 };

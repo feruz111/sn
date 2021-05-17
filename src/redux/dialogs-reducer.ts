@@ -22,24 +22,26 @@ export type MessagesPageType = {
 
 let initialState: MessagesPageType = {
   dialogs: [
-    { id: 1, name: "Dimych" },
-    { id: 2, name: "Sveta" },
-    { id: 3, name: "Sasha" },
+    { id: 1, name: "John" },
+    { id: 2, name: "Ali" },
+    { id: 3, name: "Black" },
     { id: 4, name: "Andrey" },
-    { id: 5, name: "Viktor" },
-    { id: 6, name: "Valera" },
+    { id: 5, name: "Helena" },
+    { id: 6, name: "Shack" },
   ],
   messages: [
     { id: 1, message: "Hi" },
-    { id: 2, message: "how is your it-kamasutra" },
+    { id: 2, message: "how are u doin" },
     { id: 3, message: "yo" },
     { id: 4, message: "yo" },
-    { id: 5, message: "yo" },
   ],
   newPostText: "",
 };
 
-export const dialogReducer = (state = initialState, action: DialogsReducerActionsType): MessagesPageType => {
+export const dialogReducer = (
+  state = initialState,
+  action: DialogsReducerActionsType
+): MessagesPageType => {
   switch (action.type) {
     case "ADD-MESSAGE":
       return {

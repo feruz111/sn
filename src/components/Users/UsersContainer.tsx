@@ -51,8 +51,8 @@ class UsersContainer extends React.Component<UsersContainerType, {}> {
   render() {
     return (
       <>
-        {this.props.isFetching ? <Preloader /> : null}
         <Users
+          isFetching={this.props.isFetching}
           isAuth={this.props.isAuth}
           followingInProgress={this.props.followingInProgress}
           followingInProgressAC={followingInProgressAC}

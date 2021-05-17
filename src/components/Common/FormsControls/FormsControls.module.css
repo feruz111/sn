@@ -6,7 +6,12 @@
     color: red;
 }
 .formSubmissoinError{
-    border: red 2px solid;
+    /* border: red 2px solid; */
     padding: 5px;
     color: red;
+}
+
+.inputElem{
+    margin: 20px 0;
+    display: flex;
 }

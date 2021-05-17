@@ -1,9 +1,18 @@
 .descriptionBlock{
     padding: 10px;
 }
+
+.userPhotoContainer{
+}
+
 .mainPhoto{
     max-width: 200px;
+    border-radius: 50%;
 }
+
 .contact{
     padding-left: 10px;
+}
+.editSaveButton{
+    margin: 20px 0;
 }

@@ -29,13 +29,13 @@ const LoginForm = ({ handleSubmit, error, captchaUrl }: any) => {
           [],
           Input,
           { type: "checkbox" },
-          "remember me"
+          "Remember me"
         )}
         {captchaUrl && <img src={captchaUrl} />}
         {captchaUrl &&
           createField("Symbols from image", "captcha", [required], Input)}
         {error && <div className={styles.formSubmissoinError}>{error}</div>}
-        <button>Login</button>
+        <button >Login</button>
       </div>
     </form>
   );

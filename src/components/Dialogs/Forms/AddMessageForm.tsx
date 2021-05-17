@@ -4,6 +4,7 @@ import {
   required,
 } from "../../../utils/validators/validators";
 import { TextArea } from "../../Common/FormsControls/FormsControls";
+import s from "../Dialogs.module.css";
 
 const maxLen = maxLengthCreator(30);
 
@@ -16,7 +17,7 @@ const AddMessageForm = (props: InjectedFormProps) => {
         name={"addMessage"}
         component={TextArea}
       />
-      <button>Add message</button>
+      <button className={s.addMessageButton}>Add message</button>
     </form>
   );
 };

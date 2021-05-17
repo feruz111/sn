@@ -24,10 +24,3 @@ export const DialogsContainer:any = compose(
   withAuthRedirect,
   connect(mapStateToProps, mapDispatchToProps)
 )(Dialogs);
-
-// let AuthRedirectComponent = withAuthRedirect(Dialogs);
-
-// const DialogsContainer = connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(AuthRedirectComponent);

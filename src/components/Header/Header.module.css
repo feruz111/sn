@@ -24,6 +24,7 @@
 }
 
 .loginBlockContainer {
+  text-decoration: none;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -44,8 +45,9 @@
 }
 
 .loginBlockContainer button {
+  text-decoration: none;
   border: none;
-  width: 100%;
+  width: 100px;
   height: 30px;
   background-color: #3c5a9a;
   color: #eaeefb;

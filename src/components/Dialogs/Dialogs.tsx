@@ -1,15 +1,13 @@
 import React from "react";
-import Messages from "./Message/Message";
-import DialogItem from "./DialogItem/DialogItem";
-import s from "./Dialogs.module.css";
 import {
   DialogsType,
   MessagesPageType,
-  MessagesType,
+  MessagesType
 } from "../../redux/dialogs-reducer";
-import { Redirect } from "react-router";
-import { Field, Form, reduxForm } from "redux-form";
+import DialogItem from "./DialogItem/DialogItem";
+import s from "./Dialogs.module.css";
 import { AddMessageFormRedux } from "./Forms/AddMessageForm";
+import Messages from "./Message/Message";
 
 export type DialogsPageType = {
   newPostText: string;

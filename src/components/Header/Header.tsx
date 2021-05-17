@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import s from "./Header.module.css";
-import logoImage from "../../assets/logo.svg";
+import logoImage from "../../assets/logoSN.png";
 
 type HeaderPropsType = {
   isAuth: boolean;
@@ -22,7 +22,7 @@ const Header: React.FC<HeaderPropsType> = (props) => {
             <button onClick={props.logoutTC}>Log out</button>
           </div>
         ) : (
-          <NavLink to={"/login"}>Login</NavLink>
+          <NavLink className={s.loginBlockContainer} to={"/login"}><button>Log in</button></NavLink>
         )}
       </div>
     </header>

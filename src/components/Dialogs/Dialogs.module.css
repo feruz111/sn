@@ -19,3 +19,7 @@
 .messages .message {
   color: black;
 }
+
+.addMessageButton{
+  height: 100%;
+}
