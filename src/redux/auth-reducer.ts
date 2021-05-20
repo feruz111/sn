@@ -3,7 +3,7 @@ import { Dispatch } from "redux";
 import { stopSubmit } from "redux-form";
 import { authAPI, securityAPI } from "../api/api";
 import { loginAuthPostType } from "../api/types";
-import { AppActionsType } from "./store";
+import { AppActionsType, AppThunkType } from "./store";
 
 let SET_USER_DATA = "social-network/auth/SET_USER_DATA";
 let GET_CAPTCHA_URL_SUCCESS = "social-network/auth/GET_CAPTCHA_URL_SUCCESS";
@@ -32,7 +32,7 @@ export const authReducer = (
     case GET_CAPTCHA_URL_SUCCESS:
     case SET_USER_DATA: {
       console.log(action.payload);
-      
+
       return { ...state, ...action.payload };
     }
     default:
@@ -40,7 +40,9 @@ export const authReducer = (
   }
 };
 
-export type AuthReducerActionsType = SetAuthUserDataType | getCaptchaUrlSuccessType;
+export type AuthReducerActionsType =
+  | SetAuthUserDataType
+  | getCaptchaUrlSuccessType;
 
 export type SetAuthUserDataType = ReturnType<typeof setAuthUserData>;
 export type getCaptchaUrlSuccessType = ReturnType<typeof getCaptchaUrlSuccess>;
@@ -80,14 +82,14 @@ export const loginTC = (
   password: string,
   rememberMe: boolean,
   captcha: string
-) => {
-  return async (dispatch: Dispatch<any>) => {
+): AppThunkType => {
+  return async (dispatch) => {
     let response = await authAPI.login(email, password, rememberMe, captcha);
     if (response.data.resultCode === 0) {
       dispatch(getAuthUserDataThunkCreator());
     } else {
       if (response.data.resultCode === 10) {
-        dispatch(getCaptchaUrl());
+        await dispatch(getCaptchaUrl());
       }
       let message =
         response.data.messages.length > 0

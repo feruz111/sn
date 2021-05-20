@@ -21,14 +21,14 @@ export const usersAPI = {
   unFollow(userId: number) {
     return instance.delete(`follow/${userId}`);
   },
-  profileAPI(userId: string) {
+  profileAPI(userId: string | null) {
     console.warn("Obsolete method. Use profileAPI");
     return profileAPI.getProfile(userId);
   },
 };
 
 export const profileAPI = {
-  getProfile(userId: string) {
+  getProfile(userId: string | null) {
     return instance.get(`profile/${userId}`).then((response) => response);
   },
   getStatus(userId: string) {

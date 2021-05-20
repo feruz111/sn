@@ -113,6 +113,8 @@ export const userReducer = (
       return { ...state, isFetching: action.isFetching };
     }
     case FOLLOWING_IN_PROGRESS: {
+      console.log(state.followingInProgress);
+      
       return {
         ...state,
         followingInProgress: action.isFetching

@@ -36,8 +36,9 @@ export const initializedSuccess = () => {
   };
 };
 
-export const initializeApp = () => {
-  return (dispatch: Dispatch<any>) => {
+export const initializeApp = (): AppThunkType => {
+  // AppActionsType
+  return (dispatch) => {
     let promise = dispatch(getAuthUserDataThunkCreator());
     Promise.all([promise]).then(() => {
       dispatch(initializedSuccess());

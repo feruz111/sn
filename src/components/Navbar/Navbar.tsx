@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import s from "./Navbar.module.css";
 import loginNav from "../../assets/loginNav.svg";
 import messagesNav from "../../assets/messagesNav.svg";
-import profileNav from "../../assets/profileNav.svg";
+import profileNav from "../../assets/Path.svg";
 import usersNav from "../../assets/usersNav.svg";
 
 const links = [

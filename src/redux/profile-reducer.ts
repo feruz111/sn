@@ -47,7 +47,7 @@ export type ProfilePageType = {
 };
 
 export type ProfileType = {
-  userId: number;
+  userId: string | null;
   lookingForAJob: boolean;
   lookingForAJobDescription: string;
   fullName: string;
@@ -75,9 +75,9 @@ let initialState: ProfilePageType = {
   posts: [
     { id: 1, message: "Hi, how are you", likesCount: 12 },
     { id: 2, message: "it's first", likesCount: 24 },
-    { id: 3, message: "yo",likesCount: 0 },
-    { id: 4, message: "yo",likesCount: 10 },
-    { id: 5, message: "yo",likesCount: 0 },
+    { id: 3, message: "yo", likesCount: 0 },
+    { id: 4, message: "yo", likesCount: 10 },
+    { id: 5, message: "yo", likesCount: 0 },
   ],
   profile: null,
   status: "",
@@ -169,7 +169,9 @@ export const savePhotoSuccess = (photos: PhotosType): SavePhotoSuccessType => {
 };
 
 //THUNKS
-export const getUserProfileThunkCreator = (userId: string): any => {
+export const getUserProfileThunkCreator = (
+  userId: string | null
+): AppThunkType => {
   return async (dispatch: Dispatch<AppActionsType>) => {
     let response = await usersAPI.profileAPI(userId);
     dispatch(setUserProfile(response.data));
@@ -200,8 +202,8 @@ export const savePhoto = (file: File) => {
     }
   };
 };
-export const saveProfile = (profile: ProfilePutTypes) => {
-  return async (dispatch: Dispatch<AppActionsType>, getState: () => any) => {
+export const saveProfile = (profile: ProfilePutTypes): AppThunkType => {
+  return async (dispatch, getState: () => RootStoreType) => {
     const userId = getState().auth.userId;
     let response = await profileAPI.saveProfile(profile);
     if (response.data.resultCode === 0) {

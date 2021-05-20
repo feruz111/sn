@@ -4,11 +4,13 @@ import {
   createField,
   Input,
   TextArea,
-} from "../../Common/FormsControls/FormsControls";
-import s from "./ProfileInfo.module.css";
-import style from "../../Common/FormsControls/FormsControls.module.css";
+} from "../../../Common/FormsControls/FormsControls";
+import s from "../ProfileInfo.module.css";
+import style from "../../../Common/FormsControls/FormsControls.module.css";
 
 const ProfileDataForm = ({ handleSubmit, profile, error }: any) => {
+  const contacts = ["Facebook", "Website", "Github"];
+
   return (
     <form onSubmit={handleSubmit}>
       <div>
@@ -38,7 +40,7 @@ const ProfileDataForm = ({ handleSubmit, profile, error }: any) => {
       </div>
       <div>
         <b>Contacts</b>:
-        {Object.keys(profile.contacts).map((key) => {
+        {contacts.map((key) => {
           return (
             <div key={key} className={s.contact}>
               <b>
