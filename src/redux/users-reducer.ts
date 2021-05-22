@@ -1,4 +1,3 @@
-import { ResponseType } from "axios";
 import { Dispatch } from "redux";
 import { usersAPI } from "../api/api";
 import { updateObjectInArray } from "../utils/object-helpers";

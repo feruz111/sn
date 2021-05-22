@@ -4,28 +4,36 @@ import Header from "./Header";
 import { setAuthUserData, logoutTC } from "../../redux/auth-reducer";
 import { RootStoreType } from "../../redux/store";
 
-type HeaderContainerType = {
+type MSTPType = {
   isAuth: boolean;
   login: string | null;
-  setAuthUserData: (id: string, email: string, login: string) => void;
-  getAuthUserDataThunkCreator: () => void;
+}
+
+type MDTPType = {
+  setAuthUserData: (id: string, email: string, login: string, isAuth: boolean) => void;
   logoutTC: () => void;
+}
+
+type HeaderContainerType = {
+  // getAuthUserDataThunkCreator: () => void;
 };
 
-class HeaderContainer extends React.Component<HeaderContainerType> {
+type PropsType = MSTPType & MDTPType & HeaderContainerType
+
+class HeaderContainer extends React.Component<PropsType> {
   render() {
     return <Header {...this.props} />;
   }
 }
 
-let mapStateToProps = (state: RootStoreType): any => {
+let mapStateToProps = (state: RootStoreType): MSTPType => {
   return {
     isAuth: state.auth.isAuth,
     login: state.auth.login,
   };
 };
 
-export const HeaderContainerWrap:any = connect(mapStateToProps, {
+export const HeaderContainerWrap = connect<MSTPType, MDTPType, {}, RootStoreType>(mapStateToProps, {
   setAuthUserData,
   logoutTC,
 })(HeaderContainer);
