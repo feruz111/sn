@@ -6,15 +6,18 @@ import { RootStoreType } from "../../redux/store";
 import { LoginReduxForm } from "./Forms/LoginReduxForm";
 import styles from "./Login.module.css";
 
-type LoginPropsType = {
-  loginTC: (
+type MSTPT = {
+  captchaUrl: string | null;
+  isAuth: boolean;
+};
+
+type MDTPT = {
+  loginTC?: (
     email: string,
     password: string,
     rememberMe: boolean,
     captcha: string
-  ) => Promise<void>;
-  captchaUrl: string | null;
-  isAuth: boolean;
+  ) => void;
 };
 
 type formDataType = {
@@ -24,14 +27,17 @@ type formDataType = {
   captcha: string;
 };
 
-const Login = ({ isAuth, loginTC, captchaUrl }: any) => {
+type PropsType = MSTPT & MDTPT;
+
+const Login = ({ isAuth, loginTC, captchaUrl }: PropsType) => {
   const onSubmit = (formData: formDataType) => {
-    loginTC(
-      formData.email,
-      formData.password,
-      formData.rememberMe,
-      formData.captcha
-    );
+    loginTC &&
+      loginTC(
+        formData.email,
+        formData.password,
+        formData.rememberMe,
+        formData.captcha
+      );
   };
 
   if (isAuth) {
@@ -42,7 +48,7 @@ const Login = ({ isAuth, loginTC, captchaUrl }: any) => {
     <div className={styles.loginPage}>
       <div>
         <h1>Login</h1>
-        <h3>Demo account(eamil): free@samuraijs.com</h3>
+        <h3>Demo account: free@samuraijs.com</h3>
         <h3>Password: free</h3>
         <LoginReduxForm onSubmit={onSubmit} captchaUrl={captchaUrl} />
       </div>
@@ -50,22 +56,13 @@ const Login = ({ isAuth, loginTC, captchaUrl }: any) => {
   );
 };
 
-let mapStateToProps = (state: RootStoreType) => {
+let mapStateToProps = (state: RootStoreType): MSTPT => {
   return {
     captchaUrl: state.auth.captchaUrl,
     isAuth: state.auth.isAuth,
   };
 };
 
-export default connect(mapStateToProps, { loginTC })(Login);
-
-/* <div className={styles.loginPage}>
-  {isAuth ? (
-    <Redirect to={"/profile"} />
-  ) : (
-    <div>
-      <h1>Login</h1>
-      <LoginReduxForm onSubmit={onSubmit} captchaUrl={captchaUrl} />
-    </div>
-  )}
-  </div> */
+export default connect<MSTPT, MDTPT, {}, RootStoreType>(mapStateToProps, {
+  loginTC,
+})(Login);

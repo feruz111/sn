@@ -1,20 +1,20 @@
-import React, { useEffect } from "react";
-import Profile from "./Profile";
+import React, { ComponentType } from "react";
 import { connect } from "react-redux";
+import { RouteComponentProps, withRouter } from "react-router";
+import { compose } from "redux";
+import { ProfilePutTypes } from "../../api/types";
+import withAuthRedirect from "../../hoc/withAuthRedirect";
 import {
-  updateStatusThunkCreator,
   getStatusThunkCreator,
   getUserProfileThunkCreator,
-  savePhoto,
-  saveProfile,
-  ProfileType,
+
+
+  ProfileType, savePhoto,
+  saveProfile, updateStatusThunkCreator
 } from "../../redux/profile-reducer";
-import { RouteComponentProps, withRouter } from "react-router";
 import { RootStoreType } from "../../redux/store";
-import withAuthRedirect from "../../hoc/withAuthRedirect";
-import { compose } from "redux";
 import Preloader from "../Common/Preloader/Preloader";
-import { ProfilePutTypes } from "../../api/types";
+import Profile from "./Profile";
 
 type PathParamsType = {
   userId: string | undefined;
@@ -27,7 +27,7 @@ type MapStatePropsType = {
   authorizedUserId: string | null;
 };
 type MapDispatchPropsType = {
-  setUserProfile: (profile: ProfileType) => void;
+  setUserProfile?: (profile: ProfileType) => void;
   getUserProfileThunkCreator: (userId: string) => void;
   getStatusThunkCreator: (userId: string) => void;
   updateStatusThunkCreator: (status: string) => void;
@@ -89,14 +89,17 @@ let mapStateToProps = (state: RootStoreType): MapStatePropsType => ({
   isAuth: state.auth.isAuth,
 });
 
-export const WithProfileContainer: any = compose(
+export const WithProfileContainer = compose<ComponentType>(
   withAuthRedirect,
-  connect(mapStateToProps, {
-    getUserProfileThunkCreator,
-    getStatusThunkCreator,
-    updateStatusThunkCreator,
-    savePhoto,
-    saveProfile,
-  }),
+  connect<MapStatePropsType, MapDispatchPropsType, {}, RootStoreType>(
+    mapStateToProps,
+    {
+      getUserProfileThunkCreator,
+      getStatusThunkCreator,
+      updateStatusThunkCreator,
+      savePhoto,
+      saveProfile,
+    }
+  ),
   withRouter
 )(ProfileContainer);

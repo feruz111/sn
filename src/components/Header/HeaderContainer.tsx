@@ -1,8 +1,8 @@
-import React, { ComponentType } from "react";
+import React from "react";
 import { connect } from "react-redux";
-import Header from "./Header";
-import { setAuthUserData, logoutTC } from "../../redux/auth-reducer";
+import { logoutTC, setAuthUserData } from "../../redux/auth-reducer";
 import { RootStoreType } from "../../redux/store";
+import Header from "./Header";
 
 type MSTPType = {
   isAuth: boolean;
@@ -14,11 +14,9 @@ type MDTPType = {
   logoutTC: () => void;
 }
 
-type HeaderContainerType = {
-  // getAuthUserDataThunkCreator: () => void;
-};
 
-type PropsType = MSTPType & MDTPType & HeaderContainerType
+
+type PropsType = MSTPType & MDTPType
 
 class HeaderContainer extends React.Component<PropsType> {
   render() {

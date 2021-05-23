@@ -1,27 +1,27 @@
-import React from "react";
+import React, { ComponentType } from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
+import withAuthRedirect from "../../hoc/withAuthRedirect";
 import { RootStoreType } from "../../redux/store";
-import {
-  getCurrentPage,
-  getFollowingInProgress,
-  getIsFetching,
-  getPageSize,
-  getTotalUsersCount,
-  getUsers,
-} from "../../redux/users-selectors";
 import {
   follow,
   followingInProgressAC,
   getUsersThunkCreator,
   setCurrentPage,
   unFollow,
-  UsersType,
+  UsersType
 } from "../../redux/users-reducer";
-import Preloader from "../Common/Preloader/Preloader";
+import {
+  getCurrentPage,
+  getFollowingInProgress,
+  getIsFetching,
+  getPageSize,
+  getTotalUsersCount,
+  getUsers
+} from "../../redux/users-selectors";
 import Users from "./Users";
 
-type UsersContainerType = {
+type MSTPT = {
   users: Array<UsersType>;
   pageSize: number;
   currentPage: number;
@@ -29,12 +29,17 @@ type UsersContainerType = {
   isFetching: boolean;
   followingInProgress: any;
   isAuth: boolean;
+};
+
+type MDTPT = {
   setCurrentPage: (pageNumber: number) => void;
   follow: (id: number) => void;
   unFollow: (id: number) => void;
   followingInProgressAC: (isFetching: boolean, userId: number) => void;
   getUsersThunkCreator: (currentPage: number, pageSize: number) => void;
 };
+
+type UsersContainerType = MSTPT & MDTPT;
 
 class UsersContainer extends React.Component<UsersContainerType, {}> {
   componentDidMount() {
@@ -69,7 +74,7 @@ class UsersContainer extends React.Component<UsersContainerType, {}> {
   }
 }
 
-let mapStateToProps = (state: RootStoreType) => {
+let mapStateToProps = (state: RootStoreType): MSTPT => {
   return {
     users: getUsers(state),
     pageSize: getPageSize(state),
@@ -81,9 +86,9 @@ let mapStateToProps = (state: RootStoreType) => {
   };
 };
 
-export default compose(
-  // withAuthRedirect,
-  connect(mapStateToProps, {
+export default compose<ComponentType>(
+  withAuthRedirect,
+  connect<MSTPT, MDTPT, {}, RootStoreType>(mapStateToProps, {
     follow,
     unFollow,
     setCurrentPage,

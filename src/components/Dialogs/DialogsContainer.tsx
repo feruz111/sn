@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import { AppActionsType, RootStoreType } from "../../redux/store";
 import { compose, Dispatch } from "redux";
 import withAuthRedirect from "../../hoc/withAuthRedirect";
+import { ComponentType } from "react";
 
 type mstpType = {
   newPostText: string;
@@ -31,7 +32,10 @@ let mapDispatchToProps = (dispatch: Dispatch<AppActionsType>): mdtpType => {
   };
 };
 
-export const DialogsContainer: any = compose(
+export const DialogsContainer = compose<ComponentType>(
   withAuthRedirect,
-  connect(mapStateToProps, mapDispatchToProps)
+  connect<mstpType, mdtpType, {}, RootStoreType>(
+    mapStateToProps,
+    mapDispatchToProps
+  )
 )(Dialogs);
