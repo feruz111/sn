@@ -1,8 +1,6 @@
-import { AxiosResponse } from "axios";
 import { Dispatch } from "redux";
 import { stopSubmit } from "redux-form";
 import { authAPI, securityAPI } from "../api/api";
-import { loginAuthPostType } from "../api/types";
 import { AppActionsType, AppThunkType } from "./store";
 
 let SET_USER_DATA = "social-network/auth/SET_USER_DATA";

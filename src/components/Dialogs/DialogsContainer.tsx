@@ -1,13 +1,13 @@
-import {
-  addMessageActionCreator,
-  MessagesPageType,
-} from "../../redux/dialogs-reducer";
-import Dialogs, { DialogsPageType } from "./Dialogs";
+import { ComponentType } from "react";
 import { connect } from "react-redux";
-import { AppActionsType, RootStoreType } from "../../redux/store";
 import { compose, Dispatch } from "redux";
 import withAuthRedirect from "../../hoc/withAuthRedirect";
-import { ComponentType } from "react";
+import {
+  addMessageActionCreator,
+  MessagesPageType
+} from "../../redux/dialogs-reducer";
+import { AppActionsType, RootStoreType } from "../../redux/store";
+import Dialogs from "./Dialogs";
 
 type mstpType = {
   newPostText: string;

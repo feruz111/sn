@@ -1,9 +1,8 @@
-import { AppActionsType, AppThunkType, RootStoreType } from "./store";
-import { profileAPI } from "../api/api";
-import { usersAPI } from "../api/api";
 import { Dispatch } from "redux";
 import { stopSubmit } from "redux-form";
+import { profileAPI, usersAPI } from "../api/api";
 import { ProfilePutTypes } from "../api/types";
+import { AppActionsType, AppThunkType, RootStoreType } from "./store";
 
 const SET_STATUS = "SET_STATUS";
 const DELETE_POST = "DELETE_POST";
@@ -75,9 +74,6 @@ let initialState: ProfilePageType = {
   posts: [
     { id: 1, message: "Hi, how are you", likesCount: 12 },
     { id: 2, message: "it's first", likesCount: 24 },
-    { id: 3, message: "yo", likesCount: 0 },
-    { id: 4, message: "yo", likesCount: 10 },
-    { id: 5, message: "yo", likesCount: 0 },
   ],
   profile: null,
   status: "",

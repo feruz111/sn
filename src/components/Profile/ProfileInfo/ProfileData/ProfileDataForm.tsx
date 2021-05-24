@@ -3,10 +3,10 @@ import { reduxForm } from "redux-form";
 import {
   createField,
   Input,
-  TextArea,
+  TextArea
 } from "../../../Common/FormsControls/FormsControls";
-import s from "../ProfileInfo.module.css";
 import style from "../../../Common/FormsControls/FormsControls.module.css";
+import s from "../ProfileInfo.module.css";
 
 const ProfileDataForm = ({ handleSubmit, profile, error }: any) => {
   const contacts = ["Facebook", "Website", "Github"];

@@ -1,7 +1,5 @@
-import { Dispatch } from "redux";
-import { authAPI } from "../api/api";
 import { getAuthUserDataThunkCreator } from "./auth-reducer";
-import { AppActionsType, AppThunkType } from "./store";
+import { AppThunkType } from "./store";
 
 let INITIALIZED_SUCCESS = "INITIALIZED_SUCCESS";
 

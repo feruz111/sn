@@ -1,7 +1,7 @@
-import { Field, reduxForm } from "redux-form";
+import { reduxForm } from "redux-form";
 import {
   maxLengthCreator,
-  required,
+  required
 } from "../../../utils/validators/validators";
 import { createField, Input } from "../../Common/FormsControls/FormsControls";
 import styles from "../../Common/FormsControls/FormsControls.module.css";

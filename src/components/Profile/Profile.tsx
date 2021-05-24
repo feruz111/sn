@@ -1,10 +1,9 @@
 import React from "react";
-import { Redirect } from "react-router";
 import { ProfilePutTypes } from "../../api/types";
-import { ProfilePageType, ProfileType } from "../../redux/profile-reducer";
+import { ProfileType } from "../../redux/profile-reducer";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import s from "./Profile.module.css";
-import ProfileInfo, { ProfileInfoType } from "./ProfileInfo/ProfileInfo";
+import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
 type ProfilePropsType = {
   profile: ProfileType;

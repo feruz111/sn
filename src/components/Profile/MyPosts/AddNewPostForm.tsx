@@ -2,7 +2,7 @@ import React from "react";
 import { Field, InjectedFormProps, reduxForm } from "redux-form";
 import {
   maxLengthCreator,
-  required,
+  required
 } from "../../../utils/validators/validators";
 import { TextArea } from "../../Common/FormsControls/FormsControls";
 

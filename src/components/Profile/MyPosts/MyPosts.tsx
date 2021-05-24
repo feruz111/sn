@@ -1,10 +1,5 @@
 import React from "react";
-import { Field, reduxForm } from "redux-form";
-import { PostsType, ProfilePageType } from "../../../redux/profile-reducer";
-import {
-  maxLengthCreator,
-  required,
-} from "../../../utils/validators/validators";
+import { PostsType } from "../../../redux/profile-reducer";
 import { AddNewPostFormRedux } from "./AddNewPostForm";
 import s from "./MyPosts.module.css";
 import Post from "./Post/Post";

@@ -7,16 +7,19 @@ import Header from "./Header";
 type MSTPType = {
   isAuth: boolean;
   login: string | null;
-}
+};
 
 type MDTPType = {
-  setAuthUserData: (id: string, email: string, login: string, isAuth: boolean) => void;
+  setAuthUserData: (
+    id: string,
+    email: string,
+    login: string,
+    isAuth: boolean
+  ) => void;
   logoutTC: () => void;
-}
+};
 
-
-
-type PropsType = MSTPType & MDTPType
+type PropsType = MSTPType & MDTPType;
 
 class HeaderContainer extends React.Component<PropsType> {
   render() {
@@ -31,7 +34,12 @@ let mapStateToProps = (state: RootStoreType): MSTPType => {
   };
 };
 
-export const HeaderContainerWrap = connect<MSTPType, MDTPType, {}, RootStoreType>(mapStateToProps, {
+export const HeaderContainerWrap = connect<
+  MSTPType,
+  MDTPType,
+  {},
+  RootStoreType
+>(mapStateToProps, {
   setAuthUserData,
   logoutTC,
 })(HeaderContainer);

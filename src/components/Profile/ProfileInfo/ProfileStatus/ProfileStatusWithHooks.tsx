@@ -1,8 +1,8 @@
 import React, {
   ChangeEvent,
-  ChangeEventHandler,
+
   useEffect,
-  useState,
+  useState
 } from "react";
 
 export type ProfileStatusType = {

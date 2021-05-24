@@ -1,5 +1,3 @@
-import { UsersType } from "../redux/users-reducer";
-
 export const updateObjectInArray = (
   items: any,
   itemId: number,

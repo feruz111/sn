@@ -1,7 +1,7 @@
 import {
   addPostActionCreator,
   deletePost,
-  profileReducer,
+  profileReducer
 } from "./profile-reducer";
 
 let state: any = {

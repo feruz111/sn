@@ -48,8 +48,12 @@ const Login = ({ isAuth, loginTC, captchaUrl }: PropsType) => {
     <div className={styles.loginPage}>
       <div>
         <h1>Login</h1>
-        <h3>Demo account: free@samuraijs.com</h3>
-        <h3>Password: free</h3>
+        <div className={styles.demoAcc}>
+          <strong className={styles.strong}>Demo account:</strong> free@samuraijs.com
+        </div>
+        <div className={styles.demoAcc}>
+          <strong className={styles.strong}>Password: </strong> free
+        </div>
         <LoginReduxForm onSubmit={onSubmit} captchaUrl={captchaUrl} />
       </div>
     </div>

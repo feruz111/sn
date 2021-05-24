@@ -1,7 +1,7 @@
 import { Field, InjectedFormProps, reduxForm } from "redux-form";
 import {
   maxLengthCreator,
-  required,
+  required
 } from "../../../utils/validators/validators";
 import { TextArea } from "../../Common/FormsControls/FormsControls";
 import s from "../Dialogs.module.css";

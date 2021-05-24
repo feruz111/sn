@@ -22,7 +22,7 @@ function withAuthRedirect<T>(Component: ComponentType<T>) {
     return <Component {...(restProps as T)} />;
   }
 
-  return connect(mstp)(RedirectComponent);
+  return connect<mstpType, any, any, any>(mstp)(RedirectComponent);
 }
 
 export default withAuthRedirect;
