@@ -24,17 +24,17 @@ const Paginator = ({
   const rightArrow = { backgroundImage: `url(${rightArrowImg})` };
   const leftArrow = { backgroundImage: `url(${leftArrowImg})` };
 
-  let pagesCount = Math.ceil(totalUsersCount / pageSize);
+  const pagesCount = Math.ceil(totalUsersCount / pageSize);
 
-  let pages = [];
+  const pages = [];
   for (let i = 1; i <= pagesCount; i++) {
     pages.push(i);
   }
 
-  let portionCount = Math.ceil(pagesCount / portionSize);
-  let [portionNumber, setPortionNumber] = useState(1);
-  let leftPortionPageNumber = (portionNumber - 1) * portionSize + 1;
-  let rightPortionPageNumber = portionNumber * portionSize;
+  const portionCount = Math.ceil(pagesCount / portionSize);
+  const [portionNumber, setPortionNumber] = useState(1);
+  const leftPortionPageNumber = (portionNumber - 1) * portionSize + 1;
+  const rightPortionPageNumber = portionNumber * portionSize;
 
   if (isAuth === false) return <Redirect to={"/login"} />;
 

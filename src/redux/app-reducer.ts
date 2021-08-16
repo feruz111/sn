@@ -1,13 +1,13 @@
 import { getAuthUserDataThunkCreator } from "./auth-reducer";
 import { AppThunkType } from "./store";
 
-let INITIALIZED_SUCCESS = "INITIALIZED_SUCCESS";
+const INITIALIZED_SUCCESS = "INITIALIZED_SUCCESS";
 
 export type AppInitializedState = {
   initialized: boolean;
 };
 
-let initialState: AppInitializedState = {
+const initialState: AppInitializedState = {
   initialized: false,
 };
 
@@ -37,7 +37,7 @@ export const initializedSuccess = () => {
 export const initializeApp = (): AppThunkType => {
   // AppActionsType
   return (dispatch) => {
-    let promise = dispatch(getAuthUserDataThunkCreator());
+    const promise = dispatch(getAuthUserDataThunkCreator());
     Promise.all([promise]).then(() => {
       dispatch(initializedSuccess());
     });

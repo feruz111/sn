@@ -12,12 +12,12 @@ import { WithProfileContainer } from "./components/Profile/ProfileContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import { initializeApp } from "./redux/app-reducer";
 import { RootStoreType } from "./redux/store";
-
+//test1
 type PropsType = {
   initializeApp: () => void;
   initialized: boolean;
 };
-
+//test2
 class App extends React.Component<PropsType> {
   catchAllUnHandledErrors = () => {
     alert("some error");
