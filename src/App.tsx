@@ -17,7 +17,7 @@ type PropsType = {
   initializeApp: () => void;
   initialized: boolean;
 };
-
+//test2
 class App extends React.Component<PropsType> {
   catchAllUnHandledErrors = () => {
     alert("some error");
