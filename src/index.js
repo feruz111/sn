@@ -6,7 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import store from "./redux/store.ts";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-
+// test from mac
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
