@@ -9,6 +9,7 @@ import { Provider } from "react-redux";
 // test from mac
 //b1
 //b2
+// some more b2
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
